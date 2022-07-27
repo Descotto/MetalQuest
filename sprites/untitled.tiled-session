@@ -8,8 +8,13 @@
         "NinjaAdventure/Backgrounds/Tilesets",
         "mystic_woods_free_v0/sprites/tilesets"
     ],
-    "exportAsImage.useCurrentScale": false,
+    "exportAsImage.useCurrentScale": true,
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalt-alt.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Overworld.tsx": {
             "scaleInDock": 3.7518,
             "scaleInEditor": 5.43
@@ -30,42 +35,48 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "gfx/forchest.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "gfx/imageedit_7_7534389247.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "gfx/map1.tmx": {
-            "scale": 2.3,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 43.69565217391303,
-                "y": 174.7826086956522
+                "x": 382.5,
+                "y": 175
             }
         }
     },
-    "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/sprites",
-    "map.height": 1,
+    "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/sprites/gfx",
+    "map.height": 4,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 28,
-    "map.tileWidth": 21,
-    "map.width": 4,
+    "map.tileHeight": 45,
+    "map.tileWidth": 20,
+    "map.width": 6,
     "openFiles": [
         "gfx/Overworld.tsx",
         "gfx/imageedit_7_7534389247.tsx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
+        "gfx/forchest.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalt-alt.tsx",
         "gfx/imageedit_7_7534389247.tsx",
+        "gfx/map1.tmx",
         "gfx/Overworld.tsx",
         "gfx/crono.tsx",
-        "gfx/map1.tmx",
         "gfx/collision.tsx",
         "Overworld.tsx",
         "crono-edit.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 28,
-        "width": 21
+        "height": 16,
+        "width": 16
     }
 }
