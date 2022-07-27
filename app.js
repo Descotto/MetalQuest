@@ -24,6 +24,8 @@ let chest1;
 let chest2;
 let chest3;
 let chest4;
+let chestArray = [];
+let chestLoot = ['a Potion', 'nothing', 'a Damage Boost', 'nothing', 'a Low-Potion', 'a Hi-Potion'];
 //=============================    computedStyles   ================================//
 game.setAttribute('height', getComputedStyle(game)['height']);
 game.setAttribute('width', getComputedStyle(game)['width']);
@@ -155,10 +157,12 @@ window.addEventListener('DOMContentLoaded', function() {
     hero = new Hero(30, 200);
     hero.image = cronoSprite;
     //Generate and populate chests   "hopefully automatic when im done"
-    chest1 = new Loot(60, 390);
-    chest2 = new Loot(280, 30);
-    chest3 = new Loot(750, 200);
-    chest4 = new Loot(640, 20);
+
+    chestArray[0] = chest1 = new Loot(60, 390);
+    chestArray[1] = chest2 = new Loot(280, 30);
+    chestArray[2] = chest3 = new Loot(750, 200);
+    chestArray[3] = chest4 = new Loot(640, 20);
+    
     const runGame = this.setInterval(gameLoop, 60);
 })
 document.addEventListener('keydown', moveChar);
@@ -228,6 +232,10 @@ function moveChar(e) {
                 hero.frameX ++;
             }else { hero.frameX = hero.minFrame}
             break;
+        //ADDITIONAL CONTROLS
+        case 'e':
+            openBox();
+            break;
     }
 }
 
@@ -240,7 +248,7 @@ function gameLoop() {
     ctx.clearRect(0, 0, game.width, game.height);
     //display x and y fo donkey
     movement.textContent = `x:${hero.x}\ny:${hero.y}`;
-   console.log(movement.textContent);
+   //console.log(movement.textContent);
 
 
 // draw image
@@ -269,6 +277,7 @@ let spawnMob = function() {
 }
 spawnMob();
 
+
    //hero.drawSprite(cronoSprite);
     //drawSprite(cronoSprite, hero.x, hero.y, hero.width * hero.frX, hero.height * hero.frY, hero.x, hero.y, hero.width, hero.height);
 
@@ -277,8 +286,8 @@ spawnMob();
 
 
 
-////test function
-
+////test functions
+//1
 // if (dalton.x > 620) {
 //     dalton.x -= 5;
 // }else if(dalton.y < 340) {
@@ -288,3 +297,52 @@ spawnMob();
 // }else if(dalton.y > 335) {
 //     dalton.y +=10;
 // }
+
+//2 works (but not 100% as intended)
+function test() {
+    if (hero.x === chest2.x && hero.y === chest2.y) {
+        chest2.open = true;
+        console.log('chest opened!');
+    }
+}
+
+//==================================COLLISIONS TESTING =======================//
+function detechHit(obj1, obj2) {
+    let hitBox = 
+    obj1.y + obj1.height > obj2.y &&
+    obj1.y < obj2.y + obj2.height &&
+    obj1.x + obj1.width > obj2.x &&
+    obj1.x < obj2.x + obj2.width;
+
+    if (hitBox) {
+        return true;
+    }else {
+        return false;
+    }
+}
+
+
+
+///========FOR E   works perfect
+let openBox = function() {
+    for (let i = 0; i < chestArray.length; i++) {
+    if (detechHit(hero, chestArray[i]) && chestArray[i].open === false) {
+        
+        chestArray[i].open = true
+        looting();
+
+        console.log('OPENED')
+    }else {
+        console.log('condition not met');
+        }
+    }
+}
+
+
+//==================LOOTING ===============//
+
+// function for looting tests
+function looting() {
+    let rnd = Math.floor(Math.random() * chestLoot.length);
+    console.log('You found '+chestLoot[rnd]+' in the chest.');
+}
