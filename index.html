@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
+<!-- <div class="sprites">
+    <img src="./sprites/crono.png" alt="">
+    <p>this area</p>
+</div> -->
 <body>
     <div class="container">
+        <aside id="top-left"><h2>Metal Quest</h2></aside>
+        <aside id="top-right"><h2 id="movement"></h2></aside>
         <main>
             <canvas id="game"><!-- play it, a game --></canvas>
-            <aside><h2 id="movement">test</h2></aside>
         </main>
+        <aside id="btm-left"><h2 id="score">100</h2></aside>
+        <aside id="btm-right"><h2 id="status">Reach the door</h2></aside>
     </div>
     
+    <script src="./badguys.js"></script>
     <script src="./app.js"></script>
 </body>
 </html>
