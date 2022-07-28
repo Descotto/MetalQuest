@@ -4,17 +4,86 @@ game.width = 800;
 game.height = 497;
 const ctx = game.getContext('2d'); //2d canvas
 const movement = document.querySelector('#movement');
+const info = document.querySelector('#info');
 
 
 
 const bg = new Image();
 bg.src = './assets/map2.bmp'
 
+//=========================================== BOUNDARIES
+const collisionMap = [];
+for (let z = 0; z < collisions.length; z  += 50) {
+    collisionMap.push(collisions.slice(z, 50 + z));
+}
+class Boundary {
+    static width = 16
+    static height = 16
+    constructor(position) {
+        this.position = position
+        this.width = 16
+        this.height = 16
+    }
+    draw() {
+        ctx.fillStyle = 'red'
+        ctx.fillRect(this.position.x, this.position.y, this.position.width, this.position.height)
+    }
+}
+const boundaries = [];
 
-
-
-
-
+collisionMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+        if (symbol === 1441)
+        boundaries.push(
+            new Boundary({
+                
+                x: j * Boundary.width,
+                y: i * Boundary.height
+        }))
+        
+    })
+})
+//========================================== LOOT ITEMS ===============================//
+let lootNothing = function() {
+    console.log('The chest is empty');
+}
+let lootPotion = function() {
+    if (hero.hp + 30 < hero.maxHp) {
+        hero.hp += 30;
+        console.log('Sick! You found a Potion!  HP + 30');
+    }else {
+        hero.hp = hero.maxHp;
+        console.log('Sick! You found a Potion!  HP + 30');
+    }
+}
+let lootLowPotion = function() {
+    if (hero.hp + 20 < hero.maxHp) {
+        hero.hp += 20;
+        console.log('Sick! You found a Low-Potion!  HP + 20');
+    }else {
+        hero.hp = hero.maxHp;
+        console.log('Sick! You found a Low-Potion!  HP + 20');
+    }
+}
+let lootHiPotion = function() {
+    if (hero.hp + 50 < hero.maxHp) {
+        hero.hp += 50;
+        console.log('Sick! You found a Hi-Potion!  HP + 50');
+    }else {
+        hero.hp = hero.maxHp;
+        console.log('Sick! You found a Hi-Potion!  HP + 50');
+    }
+}
+let lootdmg = function() {
+    hero.att += 7;
+    console.log('Sick! Your Attack grew by 7!');
+    setTimeout(deBuff, 60000);
+}
+let deBuff = function() {
+    hero.att -= 7;
+    console.log('Your Attack went back to normal');
+}
+//=====================================================================================//
 
 
 
@@ -25,7 +94,7 @@ let chest2;
 let chest3;
 let chest4;
 let chestArray = [];
-let chestLoot = ['a Potion', 'nothing', 'a Damage Boost', 'nothing', 'a Low-Potion', 'a Hi-Potion'];
+let chestLoot = [lootPotion, lootNothing, lootdmg, lootNothing, lootLowPotion, lootHiPotion];
 //=============================    computedStyles   ================================//
 game.setAttribute('height', getComputedStyle(game)['height']);
 game.setAttribute('width', getComputedStyle(game)['width']);
@@ -46,11 +115,13 @@ class Hero {
         this.maxFrame = 3;
         this.minFrame = 0;
 
+        this.maxHp = 100;
         this.hp = 100;
         this.str = 5;
         this.att = 10;
         this.def = 8;
         this.lv = 1;
+        this.xp = 0
         this.nextLv = 100
         this.image = "";
 
@@ -70,7 +141,7 @@ class Hero {
     }
 }
 
-// ======== ENEMIES
+// ================================================================== ENEMIES
 
 
 class Mob{
@@ -169,7 +240,7 @@ document.addEventListener('keydown', moveChar);
 
 // Moving functions
 function moveChar(e) {
-    console.log('movement', e.key);
+    //console.log('movement', e.key);
 
     switch(e.key) {
         case 'ArrowUp':
@@ -242,19 +313,28 @@ function moveChar(e) {
 
 
 //============================ GAME LOOP ===============================//
+//======================================================================//
+//======================================================================//
 
 function gameLoop() {
     //clear canvas first
     ctx.clearRect(0, 0, game.width, game.height);
-    //display x and y fo donkey
+    //display x and y for hero
     movement.textContent = `x:${hero.x}\ny:${hero.y}`;
+    info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
    //console.log(movement.textContent);
 
 
 // draw image
 
 //render background
-ctx.drawImage(bg, 0, 0);
+//ctx.drawImage(bg, 0, 0);
+
+//Boundaries
+//boundaries[0].draw();
+boundaries.forEach(boundary => {
+    boundary.draw();
+})
 //spawn chests
 chest1.put();
 chest2.put();
@@ -326,23 +406,33 @@ function detechHit(obj1, obj2) {
 ///========FOR E   works perfect
 let openBox = function() {
     for (let i = 0; i < chestArray.length; i++) {
+        //if theres a collision between hero and the chest and the chests is closed, open it.
     if (detechHit(hero, chestArray[i]) && chestArray[i].open === false) {
         
         chestArray[i].open = true
         looting();
 
-        console.log('OPENED')
-    }else {
-        console.log('condition not met');
-        }
+        
+    }
     }
 }
 
 
 //==================LOOTING ===============//
 
-// function for looting tests
+// function for looting tests  ===  works as intended
 function looting() {
+    //picks a rasndom string out of the chestLoot array
     let rnd = Math.floor(Math.random() * chestLoot.length);
-    console.log('You found '+chestLoot[rnd]+' in the chest.');
+    chestLoot[rnd]();
+    
 }
+
+//============= ??? can I have an array of functions?
+// let lootPotion = function() {
+//     if (hero.hp + 30 < hero.maxHp) {
+//         hero.hp += 30;
+//     }else {
+//         hero.hp = hero.maxHp;
+//     }
+// }

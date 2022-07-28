@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "gfx/map1.tmx",
     "expandedProjectPaths": [
-        "NinjaAdventure/Backgrounds/Tilesets",
-        "mystic_woods_free_v0/sprites/tilesets"
+        "mystic_woods_free_v0/sprites/tilesets",
+        "NinjaAdventure/Backgrounds/Tilesets"
     ],
     "exportAsImage.useCurrentScale": true,
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -47,28 +47,31 @@
             "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 382.5,
-                "y": 175
+                "x": 375.5,
+                "y": 274.5
             }
         }
     },
+    "last.exportedFilePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets",
     "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/sprites/gfx",
     "map.height": 4,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 45,
     "map.tileWidth": 20,
     "map.width": 6,
     "openFiles": [
         "gfx/Overworld.tsx",
-        "gfx/imageedit_7_7534389247.tsx"
+        "gfx/imageedit_7_7534389247.tsx",
+        "gfx/map1.tmx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
-        "gfx/forchest.tsx",
-        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalt-alt.tsx",
+        "gfx/Overworld.tsx",
         "gfx/imageedit_7_7534389247.tsx",
         "gfx/map1.tmx",
-        "gfx/Overworld.tsx",
+        "gfx/forchest.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalt-alt.tsx",
         "gfx/crono.tsx",
         "gfx/collision.tsx",
         "Overworld.tsx",
