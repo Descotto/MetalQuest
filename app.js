@@ -4,7 +4,7 @@ game.width = 800;
 game.height = 497;
 const ctx = game.getContext('2d'); //2d canvas
 const movement = document.querySelector('#movement');
-const info = document.querySelector('#info');
+const info = document.querySelector('#innerinfo');
 
 
 
@@ -20,13 +20,16 @@ class Boundary {
     static width = 16
     static height = 16
     constructor(position) {
+        this.x = position.x
+        this.y = position.y
         this.position = position
         this.width = 16
         this.height = 16
     }
     draw() {
+        
         ctx.fillStyle = 'red'
-        ctx.fillRect(this.position.x, this.position.y, this.position.width, this.position.height)
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 const boundaries = [];
@@ -36,9 +39,8 @@ collisionMap.forEach((row, i) => {
         if (symbol === 1441)
         boundaries.push(
             new Boundary({
-                
-                x: j * Boundary.width,
-                y: i * Boundary.height
+                x : j * Boundary.width,
+                y : i * Boundary.height
         }))
         
     })
@@ -83,8 +85,9 @@ let deBuff = function() {
     hero.att -= 7;
     console.log('Your Attack went back to normal');
 }
-//=====================================================================================//
-
+//=================================CHARACTERS AND CHESTS========================================//
+//a few bad guys
+const badGuys = []
 
 
 let hero;
@@ -105,13 +108,13 @@ class Hero {
     constructor(x, y) {
         this.x = 30;
         this.y = 200;
-        this.width = 21;
+        this.width = 22;
         this.height = 28;
         this.frameX = 1;
         this.frameY = 1;
         this.moving = false;
         this.alive = true;
-        this.speed = 9;
+        this.speed = 5;
         this.maxFrame = 3;
         this.minFrame = 0;
 
@@ -238,13 +241,13 @@ window.addEventListener('DOMContentLoaded', function() {
 })
 document.addEventListener('keydown', moveChar);
 
-// Moving functions
+//========================================= Moving functions ======================//
 function moveChar(e) {
-    //console.log('movement', e.key);
+    
 
     switch(e.key) {
         case 'ArrowUp':
-            hero.y - hero.speed >= 0 ? (hero.y -= hero.speed) : null;
+            hero.y - hero.speed >= 0  ? (hero.y -= hero.speed) : null;
             hero.frameY = 1;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
@@ -276,28 +279,28 @@ function moveChar(e) {
         // WASD Keybindings
         
         case 'w':
-            hero.y - 10 >= 0 ? (hero.y -= 10) : null;
+            hero.y - hero.speed >= 0 && outBound() == false ? (hero.y -= hero.speed) : (hero.y += 10);
             hero.frameY = 1;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
             }else { hero.frameX = hero.minFrame}
             break;
         case 'a':
-            hero.x - 10 >= 0 ? (hero.x -= 10) : null;
+            hero.x - hero.speed >= 0 && outBound() == false  ? (hero.x -= hero.speed) : (hero.x += 10);
             hero.frameY = 2;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
             }else { hero.frameX = hero.minFrame}
             break;
         case 's':
-            hero.y + 10 <= game.height ? (hero.y += 10) : null;
+            hero.y + hero.speed <= game.height && outBound() == false ? (hero.y += hero.speed) : (hero.y -= 10);
             hero.frameY = 0;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
             }else { hero.frameX = hero.minFrame}
             break;
         case 'd':
-            hero.x + 10 <= game.width ? (hero.x += 10) : null;
+            hero.x + hero.speed <= game.width && outBound() == false ? (hero.x += hero.speed) : (hero.x -= 10);
             hero.frameY = 3;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
@@ -328,13 +331,13 @@ function gameLoop() {
 // draw image
 
 //render background
-//ctx.drawImage(bg, 0, 0);
+ctx.drawImage(bg, 0, 0);
 
 //Boundaries
 //boundaries[0].draw();
-boundaries.forEach(boundary => {
-    boundary.draw();
-})
+// boundaries.forEach(boundary => {
+//     boundary.draw();
+// })
 //spawn chests
 chest1.put();
 chest2.put();
@@ -400,7 +403,17 @@ function detechHit(obj1, obj2) {
         return false;
     }
 }
-
+//boundaries collisions
+let outBound = function() {
+    let output = false;
+    boundaries.forEach(element => {
+       // console.log(element.x, element.y)
+        if (detechHit(hero, element)){
+            output = true
+        }
+    });
+    return output;
+}
 
 
 ///========FOR E   works perfect
@@ -428,11 +441,4 @@ function looting() {
     
 }
 
-//============= ??? can I have an array of functions?
-// let lootPotion = function() {
-//     if (hero.hp + 30 < hero.maxHp) {
-//         hero.hp += 30;
-//     }else {
-//         hero.hp = hero.maxHp;
-//     }
-// }
+//can I make a const that will return true?

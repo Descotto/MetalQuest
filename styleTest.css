@@ -8,3 +8,11 @@ body {
 canvas {
     background-color: rgb(24, 71, 19);
   }
+  .container {
+    display: grid;
+    grid-template-columns: 400, 400;
+    grid-template-rows:    300, 300, 100;
+    grid-template-areas: "title top-right"
+                        "game game"
+                        "info controls";
+  }
