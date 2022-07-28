@@ -7,7 +7,6 @@ const movement = document.querySelector('#movement');
 const info = document.querySelector('#innerinfo');
 
 
-
 const bg = new Image();
 bg.src = './assets/map2.bmp'
 
@@ -112,11 +111,12 @@ class Hero {
         this.height = 28;
         this.frameX = 1;
         this.frameY = 1;
-        this.moving = false;
+        this.moving = true;
         this.alive = true;
         this.speed = 5;
         this.maxFrame = 3;
         this.minFrame = 0;
+        this.battleGround = false;
 
         this.maxHp = 100;
         this.hp = 100;
@@ -186,7 +186,6 @@ class Loot{
         this.frameY = 0
         this.maxFrame = 1
         this.minFrame = 0
-        this.speed = 6
         this.image = chestSprite
         this.switch = function() {
             if (this.open) {
@@ -221,9 +220,10 @@ const chestSprite = new Image();
 chestSprite.src = './assets/chest.png'
 
 
-//================================ KEYBOARD INPUTS ============================//
+//================================ START GAME ============================//
 //Event listener
 window.addEventListener('DOMContentLoaded', function() {
+    if (battleGround = false) {
     //cheate dalton
     dalton = new Mob(670,410);
     dalton.image = dalSprite;
@@ -238,10 +238,11 @@ window.addEventListener('DOMContentLoaded', function() {
     chestArray[3] = chest4 = new Loot(640, 20);
     
     const runGame = this.setInterval(gameLoop, 60);
-})
+}})
+
 document.addEventListener('keydown', moveChar);
 
-//========================================= Moving functions ======================//
+//========================================= MOVEMENTS AND INPUTS ======================//
 function moveChar(e) {
     
 
@@ -279,6 +280,8 @@ function moveChar(e) {
         // WASD Keybindings
         
         case 'w':
+            //can I stop all cases with one "if" conditional? ===== nope, one per case.
+            if(hero.moving)
             hero.y - hero.speed >= 0 && outBound() == false ? (hero.y -= hero.speed) : (hero.y += 10);
             hero.frameY = 1;
             if (hero.frameX < hero.maxFrame) {
@@ -286,6 +289,7 @@ function moveChar(e) {
             }else { hero.frameX = hero.minFrame}
             break;
         case 'a':
+            if(hero.moving)
             hero.x - hero.speed >= 0 && outBound() == false  ? (hero.x -= hero.speed) : (hero.x += 10);
             hero.frameY = 2;
             if (hero.frameX < hero.maxFrame) {
@@ -293,6 +297,7 @@ function moveChar(e) {
             }else { hero.frameX = hero.minFrame}
             break;
         case 's':
+            if(hero.moving)
             hero.y + hero.speed <= game.height && outBound() == false ? (hero.y += hero.speed) : (hero.y -= 10);
             hero.frameY = 0;
             if (hero.frameX < hero.maxFrame) {
@@ -300,6 +305,7 @@ function moveChar(e) {
             }else { hero.frameX = hero.minFrame}
             break;
         case 'd':
+            if(hero.moving)
             hero.x + hero.speed <= game.width && outBound() == false ? (hero.x += hero.speed) : (hero.x -= 10);
             hero.frameY = 3;
             if (hero.frameX < hero.maxFrame) {
@@ -359,7 +365,7 @@ let spawnMob = function() {
     }
 }
 spawnMob();
-
+battleStart();
 
    //hero.drawSprite(cronoSprite);
     //drawSprite(cronoSprite, hero.x, hero.y, hero.width * hero.frX, hero.height * hero.frY, hero.x, hero.y, hero.width, hero.height);
@@ -416,7 +422,7 @@ let outBound = function() {
 }
 
 
-///========FOR E   works perfect
+///=============FOR E   works perfect ===move it somewhere better and delete this
 let openBox = function() {
     for (let i = 0; i < chestArray.length; i++) {
         //if theres a collision between hero and the chest and the chests is closed, open it.
@@ -441,4 +447,26 @@ function looting() {
     
 }
 
-//can I make a const that will return true?
+
+//==========================================TRANSCITIONS ===========================//
+//============BATTLE TRANSITIONS ========/
+//Function to detect contact between player and npcs
+function battleStart() {
+   if (detechHit(hero, dalton) && hero.moving) {
+    // ====== TEST====external animations library== WORKS!
+    console.log('trigger');
+    hero.moving = false
+    gsap.to('#overlap', {
+    opacity: 1,
+    repeat: 4,
+    yoyo: true,
+    duration: 0.5
+});
+
+// cancel game loop?
+
+//start new game loop?
+//============================
+
+   }
+}
