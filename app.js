@@ -87,10 +87,10 @@ let deBuff = function() {
 //=================================CHARACTERS AND CHESTS========================================//
 //a few bad guys
 const badGuys = []
-
+let dalton;
 
 let hero;
-let dalton;
+
 let chest1;
 let chest2;
 let chest3;
@@ -102,7 +102,7 @@ game.setAttribute('height', getComputedStyle(game)['height']);
 game.setAttribute('width', getComputedStyle(game)['width']);
 
 
-//=============================   Entities  ================================//
+//=============================   HERO  ================================//
 class Hero {
     constructor(x, y) {
         this.x = 30;
@@ -138,6 +138,16 @@ class Hero {
             this.drawSprite(this.image, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
             
         }
+        this.renderBattle = function() {
+            //ctx.drawImage(battleSpriteHero, 280, 250);
+            let battleWidth = 85
+            let battleHeight = 110
+
+            ctx.strokeStyle = 'white'
+                ctx.strokeRect(280, 250, battleWidth, battleHeight);
+                this.drawSprite(battleSpriteHero, battleWidth * 0, battleHeight * 0, battleWidth, battleHeight, 280, 250, battleWidth, battleHeight);
+                
+        }
 
         
         
@@ -168,12 +178,27 @@ class Mob{
                 
             
         }
+        this.renderBattle = function() {
+            //ctx.drawImage(battleSpriteHero, 280, 250);
+            let battleWidth = 55
+            let battleHeight = 110
 
-        //stats
+            ctx.strokeStyle = 'white'
+                ctx.strokeRect(290, 70, battleWidth, battleHeight);
+                this.drawSprite(dalAttack, battleWidth * 0, battleHeight * 0, battleWidth, battleHeight, 290, 70, battleWidth, battleHeight);
+                
+        }
+
+        //=======================================stats
         this.alive = true
         }
 }
-
+//function to spawn
+let spawnMob = function() {
+    if (dalton.alive) {
+        dalton.draw();
+    }
+}
 //================================ CHESTS
 
 class Loot{
@@ -213,8 +238,14 @@ class Loot{
 const dalSprite = new Image();
 dalSprite.src = './assets/npc.png'
 
+const dalAttack = new Image();
+dalAttack.src = './assets/dalton-attack.png'
+
 const cronoSprite = new Image();
-cronoSprite.src = "./assets/mat.png";
+cronoSprite.src = './assets/mat.png';
+
+const battleSpriteHero = new Image();
+battleSpriteHero.src = './assets/mat-attack.png'
 
 const chestSprite = new Image();
 chestSprite.src = './assets/chest.png'
@@ -223,7 +254,7 @@ chestSprite.src = './assets/chest.png'
 //================================ START GAME ============================//
 //Event listener
 window.addEventListener('DOMContentLoaded', function() {
-    if (battleGround = false) {
+    
     //cheate dalton
     dalton = new Mob(670,410);
     dalton.image = dalSprite;
@@ -237,8 +268,10 @@ window.addEventListener('DOMContentLoaded', function() {
     chestArray[2] = chest3 = new Loot(750, 200);
     chestArray[3] = chest4 = new Loot(640, 20);
     
+    //Populate enemies   (only 1 at the moment)
+    
     const runGame = this.setInterval(gameLoop, 60);
-}})
+})
 
 document.addEventListener('keydown', moveChar);
 
@@ -248,28 +281,28 @@ function moveChar(e) {
 
     switch(e.key) {
         case 'ArrowUp':
-            hero.y - hero.speed >= 0  ? (hero.y -= hero.speed) : null;
+            hero.y - 20 >= 0  ? (hero.y -= 20) : null;
             hero.frameY = 1;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
             }else { hero.frameX = hero.minFrame}
             break;
         case 'ArrowLeft':
-            hero.x - hero.speed >= 0 ? (hero.x -= hero.speed) : null;
+            hero.x - 20 >= 0 ? (hero.x -= 20) : null;
             hero.frameY = 2;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
             }else { hero.frameX = hero.minFrame}
             break;
         case 'ArrowDown':
-            hero.y + hero.speed <= game.height ? (hero.y += hero.speed) : null;
+            hero.y + 20 <= game.height ? (hero.y += 20) : null;
             hero.frameY = 0;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
             }else { hero.frameX = hero.minFrame}
             break;
         case 'ArrowRight':
-            hero.x + hero.speed <= game.width ? (hero.x += hero.speed) : null;
+            hero.x + 20 <= game.width ? (hero.x += 20) : null;
             hero.frameY = 3;
             if (hero.frameX < hero.maxFrame) {
                 hero.frameX ++;
@@ -326,74 +359,57 @@ function moveChar(e) {
 //======================================================================//
 
 function gameLoop() {
+    
     //clear canvas first
     ctx.clearRect(0, 0, game.width, game.height);
-    //display x and y for hero
-    movement.textContent = `x:${hero.x}\ny:${hero.y}`;
+
+    //test argument for transcitions
+if (hero.battleGround) {
+    //show the screen again
+    gsap.to('#overlap', {
+        opacity: 0,
+       })
+    //still record info, delete console.log then delete this =============================//
     info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
-   //console.log(movement.textContent);
+   console.log(movement.textContent);
 
+   //DRAW BATTLE MAP
+   ctx.drawImage(bgBattleFirstMap, - 0, - 750);
+   hero.renderBattle();
+   dalton.renderBattle();
+   drawAttack();
+//===================================Battleground switch =================================//
+}else {
+    
 
-// draw image
+       //display x and y for hero
+       movement.textContent = `x:${hero.x}\ny:${hero.y}`;
+       info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
+      console.log(movement.textContent);
+   
+   //render background
+   ctx.drawImage(bg, 0, 0);
+   
+   //spawn chests
+   chest1.put();
+   chest2.put();
+   chest3.put();
+   chest4.put();
+   //changes the sprite depending on the chest being open or closed
+   chest1.switch();
+   chest2.switch();
+   chest3.switch();
+   chest4.switch();
+   
+   //spawn hero
+   hero.render();
+   
+   //little conditional for spawn
+   
+   spawnMob();
+   battleStart();
 
-//render background
-ctx.drawImage(bg, 0, 0);
-
-//Boundaries
-//boundaries[0].draw();
-// boundaries.forEach(boundary => {
-//     boundary.draw();
-// })
-//spawn chests
-chest1.put();
-chest2.put();
-chest3.put();
-chest4.put();
-//changes the sprite depending on the chest being open or closed
-chest1.switch();
-chest2.switch();
-chest3.switch();
-chest4.switch();
-
-//spawn hero
-hero.render();
-
-//little conditional for spawn
-let spawnMob = function() {
-    if (dalton.alive) {
-        dalton.draw();
-    }
-}
-spawnMob();
-battleStart();
-
-   //hero.drawSprite(cronoSprite);
-    //drawSprite(cronoSprite, hero.x, hero.y, hero.width * hero.frX, hero.height * hero.frY, hero.x, hero.y, hero.width, hero.height);
-
-}
-
-
-
-
-////test functions
-//1
-// if (dalton.x > 620) {
-//     dalton.x -= 5;
-// }else if(dalton.y < 340) {
-//     dalton.y += 5;
-// }else if(dalton.x < 615) {
-//     dalton.x += 10
-// }else if(dalton.y > 335) {
-//     dalton.y +=10;
-// }
-
-//2 works (but not 100% as intended)
-function test() {
-    if (hero.x === chest2.x && hero.y === chest2.y) {
-        chest2.open = true;
-        console.log('chest opened!');
-    }
-}
+}};
 
 //==================================COLLISIONS TESTING =======================//
 function detechHit(obj1, obj2) {
@@ -452,21 +468,18 @@ function looting() {
 //============BATTLE TRANSITIONS ========/
 //Function to detect contact between player and npcs
 function battleStart() {
-   if (detechHit(hero, dalton) && hero.moving) {
-    // ====== TEST====external animations library== WORKS!
-    console.log('trigger');
-    hero.moving = false
-    gsap.to('#overlap', {
-    opacity: 1,
-    repeat: 4,
-    yoyo: true,
-    duration: 0.5
-});
-
-// cancel game loop?
-
-//start new game loop?
-//============================
-
-   }
-}
+    if (detechHit(hero, dalton) && hero.moving) {
+     // ====== TEST====external animations library== WORKS!
+     console.log('trigger');
+     hero.moving = false
+     gsap.to('#overlap', {
+     opacity: 1,
+     repeat: 4,
+     yoyo: true,
+     duration: 0.5
+    })
+    function battleGo(){
+        hero.battleGround = true;
+    }
+    setTimeout(battleGo, 2000);
+}}

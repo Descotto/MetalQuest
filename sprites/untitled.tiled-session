@@ -15,6 +15,14 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/mat-attack.tmx": {
+            "scale": 3.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 84.85714285714285,
+                "y": 44.42857142857142
+            }
+        },
         "Overworld.tsx": {
             "scaleInDock": 3.7518,
             "scaleInEditor": 5.43
@@ -40,25 +48,37 @@
             "scaleInEditor": 1
         },
         "gfx/imageedit_7_7534389247.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "gfx/map1.tmx": {
             "scale": 1,
-            "selectedLayer": 3,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 375.5,
-                "y": 274.5
+                "x": 347.5,
+                "y": 230
             }
+        },
+        "gfx/mat-attack.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "gfx/sword.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "gfx/weapons.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
         }
     },
     "last.exportedFilePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets",
-    "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/sprites/gfx",
+    "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets",
     "map.height": 4,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 45,
-    "map.tileWidth": 20,
+    "map.tileHeight": 32,
+    "map.tileWidth": 16,
     "map.width": 6,
     "openFiles": [
         "gfx/Overworld.tsx",
@@ -67,19 +87,22 @@
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
-        "gfx/Overworld.tsx",
+        "gfx/mat-attack.tsx",
+        "gfx/sword.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/mat-attack.tmx",
         "gfx/imageedit_7_7534389247.tsx",
+        "gfx/weapons.tsx",
         "gfx/map1.tmx",
+        "gfx/Overworld.tsx",
         "gfx/forchest.tsx",
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalt-alt.tsx",
         "gfx/crono.tsx",
         "gfx/collision.tsx",
-        "Overworld.tsx",
-        "crono-edit.tsx"
+        "Overworld.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 16,
+        "height": 32,
         "width": 16
     }
 }
