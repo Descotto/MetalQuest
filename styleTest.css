@@ -8,11 +8,43 @@ body {
 canvas {
     background-color: rgb(2, 4, 1);
   }
-  .container {
+#menu {
+    border: solid;
+    border-color: rgb(137, 104, 33);
+    border-style: double;
+}
+#attack {
+    
+    height: 40px;
+    font-family: 'Rampart One', cursive;
+}
+#tp {
+    height: 40px;
+    font-family: 'Rampart One', cursive;
+}
+#heal {
+    height: 40px;
+    font-family: 'Rampart One', cursive;
+}
+#attack:hover {
+    background-color: burlywood;
+}
+#tp:hover {
+    background-color: burlywood;
+}
+#heal:hover {
+    background-color: burlywood;
+}
+.button {
+    border: dashed;
+    
+}
+
+  /* .container {
     display: grid;
     grid-template-columns: 400, 400;
     grid-template-rows:    300, 300, 100;
     grid-template-areas: "title top-right"
                         "game game"
                         "info controls";
-  }
+  } */

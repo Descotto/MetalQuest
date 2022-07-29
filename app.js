@@ -117,6 +117,8 @@ class Hero {
         this.maxFrame = 3;
         this.minFrame = 0;
         this.battleGround = false;
+        this.turn = false;
+        this.heal = false;
 
         this.maxHp = 100;
         this.hp = 100;
@@ -148,7 +150,58 @@ class Hero {
                 this.drawSprite(battleSpriteHero, battleWidth * 0, battleHeight * 0, battleWidth, battleHeight, 280, 250, battleWidth, battleHeight);
                 
         }
-
+        this.attack = function() {
+            if (hero.battleGround) {
+                // crit = random from 1 to 10
+                let crit = Math.floor(Math.random() * 10)
+                //dmg = the att plus the str minus target's def plus crit - same formula for mobs
+                let dmg = (this.att + this.str) - (dalton.def);
+                dmg += crit
+                
+                dalton.hp -= dmg;
+                console.log(`You deal ${dmg} damage.`);
+                hero.turn = false;
+                setTimeout(turnBased, 8000);
+            }
+        }
+        this.TPmove = function() {
+            if (this.tp <= 100 && hero.battleGround) {
+                this.att = this.att * 2;
+                this.attack();
+                this.tp = 0;
+                console.log(`You use "Heavy Metal"`);
+                setTimeout(deBuffAtt(this), 3000);
+            }
+        }
+        // =================================== LV up test ================================//
+            this.levelUp = function() {
+                if (this.xp > this.nextLv) {
+                this.lv += 1
+                console.log(`Level up! LV:${this.lv}`);
+                // MAX HP
+                this.maxHp += (this.maxHp + this.lv) / 3;
+                this.maxHp = Math.round(this.maxHp);
+                this.hp = this.maxHp;
+                console.log(`Max HP: ${this.maxHp}`);
+                
+                //ATT
+                this.att += (this.att + this.lv) / 3;
+                this.att = Math.round(this.att);
+                console.log(`Attack: ${this.att}`);
+                //DEF
+                this.def += (this.def + this.lv) / 3;
+                this.def = Math.round(this.def);
+                console.log(`Defense: ${this.def}`);
+                //str
+                this.str += (this.str + this.lv) / 3;
+                this.str = Math.round(this.str);
+                console.log(`Streght: ${this.str}`);
+                //for next level
+                this.nextLv += (this.nextLv + (this.lv * 10)) / 2;
+                this.nextLv = Math.round(this.nextLv);
+                //reset xp
+                this.xp = 0;
+        }}
         
         
     }
@@ -189,9 +242,60 @@ class Mob{
                 
         }
 
-        //=======================================stats
+        //=======================================stats ==========================//
         this.alive = true
+        this.hp = 100
+        this.att = 9
+        this.def = 7
+        this.str = 3
+        this.lv = 1
+        this.tp = 0
+        this.xp = 100
+        this.attack = function() {
+            if (hero.battleGround) {
+                let crit = Math.floor(Math.random() * 10)
+                let dmg = (dalton.att + dalton.str) - (hero.def / 2);
+                dmg += crit;
+                dmg = Math.round(dmg);
+                
+                hero.hp -= dmg;
+                this.tp += 14;
+                console.log(`SLASH!`);
+                console.log(`You take ${dmg} damage.`)
+            }
         }
+        this.TPmove = function() {
+            if (this.tp >= 100 && hero.battleGround) {
+                this.att = this.att * 2;
+                this.attack();
+                this.tp = 0;
+                console.log(`CRITICAL HIT!`)
+                setTimeout(deBuffAtt(this), 3000);
+            }
+        }
+        //================= level UP
+        this.levelUp = function() {
+            if (this.xp > this.nextLv) {
+            this.lv += 1
+            // HP
+            this.hp += (this.hp + this.lv) / 3;
+            this.hp = Math.round(this.hp);
+            //ATT
+            this.att += (this.att + this.lv) / 3;
+            this.att = Math.round(this.att);
+            //DEF
+            this.def += (this.def + this.lv) / 3;
+            this.def = Math.round(this.def);
+            //str
+            this.str += (this.str + this.lv) / 3;
+            this.str = Math.round(this.str);
+            //XP
+            this.xp += (this.xp + this.lv) / 2;
+            this.xp = Math.round(this.xp);
+    }}
+        
+
+    }
 }
 //function to spawn
 let spawnMob = function() {
@@ -371,21 +475,27 @@ if (hero.battleGround) {
        })
     //still record info, delete console.log then delete this =============================//
     info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
-   console.log(movement.textContent);
+   
 
    //DRAW BATTLE MAP
    ctx.drawImage(bgBattleFirstMap, - 0, - 750);
    hero.renderBattle();
    dalton.renderBattle();
-   drawAttack();
+   dalton.TPmove();
+   hero.levelUp();
+   endBattle();
+   
 //===================================Battleground switch =================================//
 }else {
-    
+    //show screen
+    gsap.to('#overlap', {
+        opacity: 0,
+       })
 
        //display x and y for hero
        movement.textContent = `x:${hero.x}\ny:${hero.y}`;
        info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
-      console.log(movement.textContent);
+      //console.log(movement.textContent);
    
    //render background
    ctx.drawImage(bg, 0, 0);
@@ -408,6 +518,7 @@ if (hero.battleGround) {
    
    spawnMob();
    battleStart();
+   hero.levelUp();
 
 }};
 
@@ -464,22 +575,4 @@ function looting() {
 }
 
 
-//==========================================TRANSCITIONS ===========================//
-//============BATTLE TRANSITIONS ========/
-//Function to detect contact between player and npcs
-function battleStart() {
-    if (detechHit(hero, dalton) && hero.moving) {
-     // ====== TEST====external animations library== WORKS!
-     console.log('trigger');
-     hero.moving = false
-     gsap.to('#overlap', {
-     opacity: 1,
-     repeat: 4,
-     yoyo: true,
-     duration: 0.5
-    })
-    function battleGo(){
-        hero.battleGround = true;
-    }
-    setTimeout(battleGo, 2000);
-}}
+

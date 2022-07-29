@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styleTest.css">
-    <title>Document</title>
+    <title>Metal Quest!</title>
 </head>
 <!-- <div class="sprites">
     <img src="./sprites/crono.png" alt="">
@@ -18,6 +22,19 @@
         <main style="position: relative;">
             <div id="overlap" style="background-color: black; position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 0; pointer-events: none;"></div>
             <canvas id="game"><!-- play it, a game --></canvas>
+            <div id="menu" style="
+            background-color: rgb(91, 90, 89, .6);
+            width: 200px; height: 200px; position:absolute; top: 297px;">Action
+            <div id="attack">
+                <h2 class="button">Attack</h2>
+            </div>
+            <div id="tp">
+                <h2 class="button">Metal Strike</h2>
+            </div>
+            <div id="heal">
+                <h2 class="button">Flask</h2>
+            </div>
+        </div>
             
         </main>
         <aside id="info"><p><h2 id="innerinfo"></h2></p></aside>
