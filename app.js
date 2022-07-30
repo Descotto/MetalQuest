@@ -86,7 +86,7 @@ let deBuff = function() {
 }
 //=================================CHARACTERS AND CHESTS========================================//
 //a few bad guys
-const badGuys = []
+const foes = []
 let dalton;
 let spike;
 let ghost;
@@ -133,6 +133,7 @@ class Hero {
         this.battleGround = false;
         this.turn = false;
         this.heal = false;
+        this.target = '';
 
         this.maxHp = 100;
         this.hp = 100;
@@ -141,6 +142,7 @@ class Hero {
         this.def = 8;
         this.lv = 1;
         this.xp = 0
+        this.tp = 0
         this.nextLv = 100
         this.image = "";
 
@@ -165,26 +167,28 @@ class Hero {
                 
         }
         this.attack = function() {
-            if (hero.battleGround) {
+            if (hero.battleGround && hero.turn) {
                 // crit = random from 1 to 10
                 let crit = Math.floor(Math.random() * 10)
                 //dmg = the att plus the str minus target's def plus crit - same formula for mobs
-                let dmg = (this.att + this.str) - (dalton.def);
+                let dmg = (this.att + this.str) - (this.target.def);
                 dmg += crit
-                
-                dalton.hp -= dmg;
+                this.target.hp -= dmg;
                 console.log(`You deal ${dmg} damage.`);
                 hero.turn = false;
+                hero.tp += 7;
+                menuDiv.style.color = 'gray';
+                
                 setTimeout(turnBased, 8000);
             }
         }
         this.TPmove = function() {
-            if (this.tp <= 100 && hero.battleGround) {
+            if (this.tp >= 100 && hero.battleGround) {
                 this.att = this.att * 2;
                 this.attack();
                 this.tp = 0;
                 console.log(`You use "Heavy Metal"`);
-                setTimeout(deBuffAtt(this), 3000);
+                setTimeout(() => {this.att = this.att / 2}, 3000);
                 setTimeout(console.log('time-out'), 8000);
             }
         }
@@ -236,12 +240,13 @@ class Mob{
         this.maxFrame = 3
         this.minFrame = 0
         this.speed = 6
+        this.walk = ''
         this.drawSprite = function(img, sX, sY, sW, sH, dX, dY, dW, dH){
             ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         }
             this.draw = function() {
                 ctx.strokeStyle = 'white'
-                ctx.strokeRect(dalton.x, dalton.y, this.width, this.height);
+                ctx.strokeRect(this.x, this.y, this.width, this.height);
                 this.drawSprite(this.image, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
                 
             
@@ -256,6 +261,36 @@ class Mob{
                 this.drawSprite(dalAttack, battleWidth * 0, battleHeight * 0, battleWidth, battleHeight, 290, 70, battleWidth, battleHeight);
                 
         }
+        this.roamWE = function() {
+                if (this.walk === 'left') {
+            
+                    let walkLeft = setInterval(() => { this.x -=2}, 800);
+                    walkLeft;
+                    setTimeout(() => {clearInterval(walkLeft)}, 15000);
+                    setTimeout(() => {this.walk = 'right'}, 16000);
+                    
+                    }else if (this.walk === 'right') {
+                    let walkRight = setInterval(() => {this.x +=2}, 800);
+                    setTimeout(() => {clearInterval(walkRight)}, 15000)
+                    setTimeout(() => {this.walk = 'left'}, 16000);
+                    walkRight;
+                    
+            }}
+            this.roamNS = function() {
+                if (this.walk === 'up') {
+            
+                    let walkUp = setInterval(() => { this.x -=2}, 800);
+                    walkUp;
+                    setTimeout(() => {clearInterval(walkUp)}, 15000);
+                    setTimeout(() => {this.walk = 'down'}, 16000);
+                    
+                    }else if (this.walk === 'down') {
+                    let walkDown = setInterval(() => {this.x +=2}, 1000);
+                    walkDown;
+                    setTimeout(() => {clearInterval(walkDown)}, 15000)
+                    setTimeout(() => {this.walk = 'up'}, 16000);
+                    
+            }}
 
         //=======================================stats ==========================//
         this.alive = true
@@ -269,14 +304,17 @@ class Mob{
         this.attack = function() {
             if (hero.battleGround) {
                 let crit = Math.floor(Math.random() * 10)
-                let dmg = (dalton.att + dalton.str) - (hero.def / 2);
+                console.log(crit);
+                let dmg = hero.target.att + hero.target.str - hero.def;
+                console.log('check 1:   '+dmg);
                 dmg += crit;
-                dmg = Math.round(dmg);
-                
-                hero.hp -= dmg;
+                console.log('check 2:  '+dmg);
+                let totalDmg = Math.round(dmg);
+                console.log(totalDmg);
+                hero.hp -= totalDmg;
                 this.tp += 14;
                 console.log(`SLASH!`);
-                console.log(`You take ${dmg} damage.`)
+                console.log(`You take ${totalDmg} damage.`)
             }
         }
         this.TPmove = function() {
@@ -285,7 +323,7 @@ class Mob{
                 this.attack();
                 this.tp = 0;
                 console.log(`CRITICAL HIT!`)
-                setTimeout(deBuffAtt(this), 3000);
+                setTimeout(() => {this.att = this.att / 2}, 3000);
             }
         }
         //================= level UP
@@ -354,67 +392,141 @@ class Loot{
     }
 }
 //================================ SPRITES ====================================//
+
+//================================gotta find better way to make these, maybe an array.
 const dalSprite = new Image();
-dalSprite.src = './assets/npc.png'
+dalSprite.src = './assets/npc.png';
 
 const dalAttack = new Image();
-dalAttack.src = './assets/dalton-attack.png'
+dalAttack.src = './assets/dalton-attack.png';
+
+const bad1 = new Image();
+const bad2 = new Image();
+const bad3 = new Image();
+const bad4 = new Image();
+const bad5 = new Image();
+const bad6 = new Image();
+const bad7 = new Image();
+const bad8 = new Image();
+const bad9 = new Image();
+const bad10 = new Image();
+const bad11 = new Image();
+const bad12 = new Image();
+const bad13 = new Image();
+
+bad1.src = './assets/bad-guys/leo.png';
+bad2.src = './assets/bad-guys/devouerer.png';
+bad3.src = './assets/bad-guys/spirit.png';
+bad4.src = './assets/bad-guys/kerka.png';
+bad5.src = './assets/bad-guys/lobo.png';
+bad6.src = './assets/bad-guys/scorpion.png';
+bad7.src = './assets/bad-guys/sploomy.png';
+bad8.src = './assets/bad-guys/tucan.png';
+bad9.src = './assets/bad-guys/twig.png';
+bad10.src = './assets/bad-guys/enemies-chrono-trigger.png';
+bad11.src = './assets/bad-guys/enemies-chrono-trigger.png';
+bad12.src = './assets/bad-guys/enemies-chrono-trigger.png';
+bad13.src = './assets/bad-guys/enemies-chrono-trigger.png';
+//=============================================================================//
 
 const cronoSprite = new Image();
 cronoSprite.src = './assets/mat.png';
 
 const battleSpriteHero = new Image();
-battleSpriteHero.src = './assets/mat-attack.png'
+battleSpriteHero.src = './assets/mat-attack.png';
 
 const chestSprite = new Image();
-chestSprite.src = './assets/chest.png'
+chestSprite.src = './assets/chest.png';
 
 
 //================================ START GAME ============================//
 //Event listener
 window.addEventListener('DOMContentLoaded', function() {
     
-    //cheate enemies
+//=============================Created openents and place them in map 1
     dalton = new Mob(670,410);
     dalton.image = dalSprite;
+    this.walk = 'left';
     //
-    badGuys[0] = spike = new Mob(0, 0);
-
+    foes[0] = spike = new Mob(185, 205);
+    foes[0].image = bad1;
     //
-    badGuys[1] = ghost = new Mob(10, 0);
-
+    foes[1] = ghost = new Mob(425, 245);
+    foes[1].image = bad2;
     //
-    badGuys[2] = zombie = new Mob(20, 0);
-
+    foes[3] = wolf = new Mob(145, 425);
+    foes[3].image = bad4;
     //
-    badGuys[3] = wolf = new Mob(30, 0);
-
+    foes[4] = grunt = new Mob(45, 345);
+    foes[4].image = bad5;
     //
-    badGuys[4] = grunt = new Mob(40, 0);
-
+    foes[5] = wilder = new Mob(585, 345);
+    foes[5].image = bad6;
     //
-    badGuys[5] = wilder = new Mob(50, 0);
-
+    foes[6] = crook = new Mob(665, 125);
+    foes[6].image = bad7;
     //
-    badGuys[6] = crook = new Mob(40, 0);
-
+    foes[7] = witch = new Mob(505, 85);
+    foes[7].image = bad8;
     //
-    badGuys[7] = witch = new Mob(50, 0);
-
+    foes[8] = vampire = new Mob(245, 45);
+    foes[8].image = bad9;
     //
-    badGuys[8] = vampire = new Mob(0, 20);
-
+    foes[9] = blade = new Mob(710, 260);
+    foes[9].image = bad10;
     //
-    badGuys[9] = blade = new Mob(10, 20);
-
+    foes[10] = specter = new Mob(170, 340);
+    foes[10].image = bad11;
     //
-    badGuys[10] = specter = new Mob(20, 20);
-
+    foes[11] = phantom = new Mob(305, 445);
+    foes[11].image = bad12;
     //
-    badGuys[11] = phantom = new Mob(30, 20);
-
+    foes[12] = dusk = new Mob(510, 300);
+    foes[12].image = bad13;
     //
-    badGuys[12] = dusk = new Mob(40, 20);
+        //=====================================Big BAD GUY=========================//
+        foes[2] = zombie = new Mob(0, 0);
+        foes[2].image = bad3;
+        foes[2].width = 125;
+        foes[2].height = 37;
+        foes[2].frameX = 5;
+        foes[2].frameY = 0;
+        foes[2].hp += 60;
+        foes[2].str += 10;
+        foes[2].def += 4;
+        foes[2].walk = 'right';
+        foes[2].roamWE = function() {
+            if (this.walk === 'left') {
+        
+                let walkLeft = setInterval(() => { this.x -=10}, 800);
+                walkLeft;
+                setTimeout(() => {clearInterval(walkLeft)}, 15000);
+                setTimeout(bossWalk, 16000);
+                
+                }else if (this.walk === 'right') {
+                let walkRight = setInterval(() => {this.x +=10}, 800);
+                walkRight;
+                setTimeout(() => {clearInterval(walkRight)}, 15000);
+                setTimeout(bossWalk, 16000);
+                
+                
+        }}
+        foes[2].roamNS = function() {
+            if (this.walk === 'up') {
+        
+                let walkUp = setInterval(() => { this.y -=8}, 800);
+                walkUp;
+                setTimeout(() => {clearInterval(walkUp)}, 15000);
+                setTimeout(bossWalk, 16000);
+                
+                }else if (this.walk === 'down') {
+                let walkDown = setInterval(() => {this.y +=8}, 1000);
+                walkDown;
+                setTimeout(() => {clearInterval(walkDown)}, 15000)
+                setTimeout(bossWalk, 16000);
+                
+        }}
+        //====================================================================//
     //create hero
     hero = new Hero(30, 200);
     hero.image = cronoSprite;
@@ -520,56 +632,13 @@ function gameLoop() {
     //clear canvas first
     ctx.clearRect(0, 0, game.width, game.height);
 
-    //test argument for transcitions
+    
 if (hero.battleGround) {
-    //show the screen again
-    // gsap.to('#overlap', {
-    //     opacity: 0,
-    //    })
-    //still record info, delete console.log then delete this =============================//
-    info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
-   
-
-   //DRAW BATTLE MAP
-   ctx.drawImage(bgBattleFirstMap, - 0, - 750);
-   hero.renderBattle();
-   dalton.renderBattle();
-   dalton.TPmove();
-   hero.levelUp();
-   endBattle();
+   battle1();
    
 //===================================Battleground switch =================================//
 }else {
-    //show screen
-    
-
-       //display x and y for hero
-       movement.textContent = `x:${hero.x}\ny:${hero.y}`;
-       info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
-      //console.log(movement.textContent);
-   
-   //render background
-   ctx.drawImage(bg, 0, 0);
-   
-   //spawn chests
-   chest1.put();
-   chest2.put();
-   chest3.put();
-   chest4.put();
-   //changes the sprite depending on the chest being open or closed
-   chest1.switch();
-   chest2.switch();
-   chest3.switch();
-   chest4.switch();
-   
-   //spawn hero
-   hero.render();
-   
-   //little conditional for spawn
-   
-   spawnMob();
-   battleStart();
-   hero.levelUp();
+    stage1();
 
 }};
 
