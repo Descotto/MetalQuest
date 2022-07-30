@@ -88,6 +88,20 @@ let deBuff = function() {
 //a few bad guys
 const badGuys = []
 let dalton;
+let spike;
+let ghost;
+let zombie;
+let wolf;
+let grunt;
+let wilder;
+let crook;
+let witch;
+let vampire;
+let blade;
+let specter;
+let phantom;
+let dusk;
+
 
 let hero;
 
@@ -171,6 +185,7 @@ class Hero {
                 this.tp = 0;
                 console.log(`You use "Heavy Metal"`);
                 setTimeout(deBuffAtt(this), 3000);
+                setTimeout(console.log('time-out'), 8000);
             }
         }
         // =================================== LV up test ================================//
@@ -359,9 +374,47 @@ chestSprite.src = './assets/chest.png'
 //Event listener
 window.addEventListener('DOMContentLoaded', function() {
     
-    //cheate dalton
+    //cheate enemies
     dalton = new Mob(670,410);
     dalton.image = dalSprite;
+    //
+    badGuys[0] = spike = new Mob(0, 0);
+
+    //
+    badGuys[1] = ghost = new Mob(10, 0);
+
+    //
+    badGuys[2] = zombie = new Mob(20, 0);
+
+    //
+    badGuys[3] = wolf = new Mob(30, 0);
+
+    //
+    badGuys[4] = grunt = new Mob(40, 0);
+
+    //
+    badGuys[5] = wilder = new Mob(50, 0);
+
+    //
+    badGuys[6] = crook = new Mob(40, 0);
+
+    //
+    badGuys[7] = witch = new Mob(50, 0);
+
+    //
+    badGuys[8] = vampire = new Mob(0, 20);
+
+    //
+    badGuys[9] = blade = new Mob(10, 20);
+
+    //
+    badGuys[10] = specter = new Mob(20, 20);
+
+    //
+    badGuys[11] = phantom = new Mob(30, 20);
+
+    //
+    badGuys[12] = dusk = new Mob(40, 20);
     //create hero
     hero = new Hero(30, 200);
     hero.image = cronoSprite;
@@ -470,9 +523,9 @@ function gameLoop() {
     //test argument for transcitions
 if (hero.battleGround) {
     //show the screen again
-    gsap.to('#overlap', {
-        opacity: 0,
-       })
+    // gsap.to('#overlap', {
+    //     opacity: 0,
+    //    })
     //still record info, delete console.log then delete this =============================//
     info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
    
@@ -488,9 +541,7 @@ if (hero.battleGround) {
 //===================================Battleground switch =================================//
 }else {
     //show screen
-    gsap.to('#overlap', {
-        opacity: 0,
-       })
+    
 
        //display x and y for hero
        movement.textContent = `x:${hero.x}\ny:${hero.y}`;

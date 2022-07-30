@@ -28,18 +28,7 @@ function menuShow() {
 const battleMaps = []
 //=================================== BATTLEGROUND EVENTS and stuff ========================//
 
-//======================================= END BATTLE =====================================//
-function endBattle() {
-    if (dalton.hp <= 0) {
-        dalton.hp = 1;
-        dalton.alive = false;
-        let xp = dalton.xp / 8
-        hero.xp += xp
-        overlap.style.opacity = 1;
-        setTimeout(battleStop, 6000);
-        setTimeout(menuHide, 2000);
 
-}}
 
 
 
@@ -78,31 +67,58 @@ function useHeal() {
 
 
 // =================================== ATTACKS ===================================//
+//debuff function, will make a better one as a class item
 function deBuffAtt(who) {
     who.att = who.att / 2;
 }
 
-
+// Mob attack loop
 function attackloop(){
     if (dalton.alive && hero.hp > 0) {
     setInterval(dalton.attack, 10000);
     }
 }
 
-
+// called at 4 seconds after transcition begins, it stops outer worl from 
+// displaying in the loop and starts the Battle ground loop as battleGround comes on.
 function battleGo(){
     hero.battleGround = true;
+    gsap.to('#overlap', {
+        opacity: 0,
+       })
     
 }
-function battleStop(){
-    hero.battleGround = false;
-    hero.moving = true;
-}
-
+// this one isn't working as instended. meant to add a timer for your turn
 function turnBased(){
     if (hero.battleGround) {
         hero.turn = true
     }
+}
+//======================================= END BATTLE =====================================//
+
+function endBattle() {
+    if (dalton.hp <= 0) {
+        dalton.hp = 1;
+        dalton.alive = false;
+        let xp = dalton.xp / 8
+        hero.xp += xp
+        gsap.to('#overlap', {
+            opacity: 1,
+            repeat: 4,
+            yoyo: true,
+            duration: 0.4
+           })
+        setTimeout(battleStop, 6000);
+        setTimeout(menuHide, 2000);
+
+}}
+function battleStop(){
+    hero.battleGround = false;
+    hero.moving = true;
+    gsap.to('#overlap', {
+        opacity: 0,
+       })
+
 }
 
 //==============================================Event Listeners for attacks ==========================//
