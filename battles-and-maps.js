@@ -98,10 +98,50 @@ const BossMovements =['up', 'down', 'right', 'left'];
 //same principal as looting but for directionals
 
 function bossWalk() {
+    if (zombie.x < 10){
+        zombie.walk = 'right'
+    }else if(zombie.y < 10) {
+        zombie.walk = 'down'
+    }else if(zombie.x + 10 + zombie.width > game.width) {
+        zombie.walk = 'left'
+    }else if(zombie.y + 10 + zombie.height > game.height) {
+        zombie.walk = 'up'
+    }else{
     let rnd = Math.floor(Math.random() * BossMovements.length);
     foes[2].walk = BossMovements[rnd];
-}
+}}
 
+//============== animate bad guys sprites function for recall -- doesn't work propertly
+// function moveSprite() {
+//     console.log(this.frameX+'framex');
+//     if (this.frameX < this.maxFrame) {
+//     this.frameX ++;
+//     console.log('moved if');
+
+// }else { 
+//     this.frameX = this.minFrame
+//     console.log('moved else');
+// }};
+//======================== for declare function in individual characters
+// function moveSprite(character) {
+//     console.log('current frameX'+character.frameX);
+//     if (character.frameX < character.maxFrame) {
+//     character.frameX++;
+//     console.log('moved if');
+
+// }else { 
+//     character.frameX = 0;
+//     console.log('moved else');
+// }};
+
+//============== foreach to make em all move once and for all
+setInterval(() =>{
+    foes.forEach(element => {
+        if (element.frameX < element.maxFrame) {
+            element.frameX++;
+        }else{element.frameX = 0;}
+    })
+}, 800);
 //==========================================================================================//
 
 

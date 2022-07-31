@@ -3,17 +3,83 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "gfx/map1.tmx",
+    "activeFile": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tests.tmx",
     "expandedProjectPaths": [
+        ".",
+        "gfx",
         "mystic_woods_free_v0/sprites/tilesets",
         "NinjaAdventure/Backgrounds/Tilesets"
     ],
-    "exportAsImage.useCurrentScale": true,
+    "exportAsImage.useCurrentScale": false,
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/Leo.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/for-kerka.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 651.5151515151513,
+                "y": 509.09090909090907
+            }
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/forleo.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 906.0606060606059,
+                "y": 609.090909090909
+            }
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/kerka.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/leo.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/leo2.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/mario.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/spirit-left.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/spirit.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/sploomy copy.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/sploomy.tmx": {
+            "scale": 0.15,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 446.66666666666697,
+                "y": 446.66666666666674
+            }
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/sploomy.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/tucan-sprite.tmx": {
+            "scale": 0.2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 450,
+                "y": 450
+            }
         },
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalt-alt.tsx": {
             "scaleInDock": 1,
@@ -23,9 +89,13 @@
             "scale": 3.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 50.14285714285714,
-                "y": 65.14285714285715
+                "x": 48.28571428571428,
+                "y": 64.28571428571428
             }
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalton-attack.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/mat-attack.tmx": {
             "scale": 3.5,
@@ -38,6 +108,14 @@
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/spirit.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tests.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 335,
+                "y": 115
+            }
         },
         "Overworld.tsx": {
             "scaleInDock": 3.7518,
@@ -67,6 +145,10 @@
             "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
+        "gfx/kerka.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
         "gfx/map1.tmx": {
             "scale": 1,
             "selectedLayer": 5,
@@ -74,6 +156,10 @@
                 "x": 347.5,
                 "y": 230
             }
+        },
+        "gfx/mario.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "gfx/mat-attack.tsx": {
             "scaleInDock": 3,
@@ -83,6 +169,14 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "gfx/tucan copy.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "gfx/tucan.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
         "gfx/weapons.tsx": {
             "scaleInDock": 1.5,
             "scaleInEditor": 1
@@ -90,35 +184,42 @@
     },
     "last.exportedFilePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets",
     "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys",
-    "map.height": 2,
+    "map.height": 1,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 37,
-    "map.tileWidth": 125,
-    "map.width": 6,
+    "map.tileHeight": 30,
+    "map.tileWidth": 29,
+    "map.width": 2,
     "openFiles": [
         "gfx/Overworld.tsx",
-        "gfx/imageedit_7_7534389247.tsx",
-        "gfx/map1.tmx"
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalton-attack.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalton-attack.tmx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/spirit.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tests.tmx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/spirit-left.tsx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
-        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/spirit.tsx",
-        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/spirit.tsx",
-        "gfx/mat-attack.tsx",
-        "gfx/sword.tsx",
-        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/mat-attack.tmx",
-        "gfx/imageedit_7_7534389247.tsx",
-        "gfx/weapons.tsx",
-        "gfx/map1.tmx",
-        "gfx/Overworld.tsx",
-        "gfx/forchest.tsx",
-        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/dalt-alt.tsx",
-        "gfx/crono.tsx"
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/mario.tsx",
+        "gfx/mario.tsx",
+        "gfx/tucan.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/tucan-sprite.tmx",
+        "gfx/tucan copy.tsx",
+        "gfx/kerka.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/for-kerka.tmx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/sploomy.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/sploomy.tmx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/sploomy copy.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/kerka.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/leo.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
     "tileset.tileSize": {
-        "height": 37,
-        "width": 125
-    }
+        "height": 30,
+        "width": 29
+    },
+    "tileset.transparentColor": "#20fffe",
+    "tileset.useTransparentColor": true
 }

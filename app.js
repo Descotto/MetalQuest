@@ -230,17 +230,17 @@ class Hero {
 
 
 class Mob{
-    constructor(x, y){
+    constructor(x, y, walk){
         this.x = x
         this.y = y
         this.width = 16
         this.height = 32
-        this.frameX = 2
-        this.frameY = 1
+        this.frameX = 0
+        this.frameY = 0
         this.maxFrame = 3
         this.minFrame = 0
         this.speed = 6
-        this.walk = ''
+        this.walk = walk
         this.drawSprite = function(img, sX, sY, sW, sH, dX, dY, dW, dH){
             ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         }
@@ -261,36 +261,67 @@ class Mob{
                 this.drawSprite(dalAttack, battleWidth * 0, battleHeight * 0, battleWidth, battleHeight, 290, 70, battleWidth, battleHeight);
                 
         }
+//============================================ Make npc move -( moving works, sprite doesn't).
         this.roamWE = function() {
                 if (this.walk === 'left') {
-            
+                    //move the character around
                     let walkLeft = setInterval(() => { this.x -=2}, 800);
                     walkLeft;
+                    // animate sprite
+                    this.frameY = 0
+
                     setTimeout(() => {clearInterval(walkLeft)}, 15000);
                     setTimeout(() => {this.walk = 'right'}, 16000);
                     
                     }else if (this.walk === 'right') {
                     let walkRight = setInterval(() => {this.x +=2}, 800);
+                    walkRight;
+                    this.frameY = 1;
+                    
                     setTimeout(() => {clearInterval(walkRight)}, 15000)
                     setTimeout(() => {this.walk = 'left'}, 16000);
-                    walkRight;
+                    
                     
             }}
             this.roamNS = function() {
                 if (this.walk === 'up') {
             
-                    let walkUp = setInterval(() => { this.x -=2}, 800);
+                    let walkUp = setInterval(() => {this.y -=2}, 800);
                     walkUp;
+                    
                     setTimeout(() => {clearInterval(walkUp)}, 15000);
                     setTimeout(() => {this.walk = 'down'}, 16000);
                     
                     }else if (this.walk === 'down') {
-                    let walkDown = setInterval(() => {this.x +=2}, 1000);
+                    let walkDown = setInterval(() => {this.y +=2}, 1000);
                     walkDown;
+                    
                     setTimeout(() => {clearInterval(walkDown)}, 15000)
                     setTimeout(() => {this.walk = 'up'}, 16000);
                     
             }}
+            //===================== Move sprite
+        //     this.character;
+        //     this.moveSprite = function(character){
+        //         console.log('current frameX'+character.frameX);
+        //     if (this.character.frameX < this.character.maxFrame) {
+        //     this.character.frameX++;
+        //     console.log('moved if');
+        
+        // }else { 
+        //     character.frameX = 0;
+        //     console.log('moved else');
+        // }};
+            // this.moveSprite = function() {
+            //     console.log('current frameX'+this.frameX);
+            //     if (this.frameX < this.maxFrame) {
+            //     this.frameX++;
+            //     console.log('moved if');
+            
+            // }else { 
+            //     this.frameX = 0;
+            //     console.log('moved else');
+            // }};
 
         //=======================================stats ==========================//
         this.alive = true
@@ -394,12 +425,13 @@ class Loot{
 //================================ SPRITES ====================================//
 
 //================================gotta find better way to make these, maybe an array.
-const dalSprite = new Image();
-dalSprite.src = './assets/npc.png';
+
+
 
 const dalAttack = new Image();
 dalAttack.src = './assets/dalton-attack.png';
 
+const bad0 = new Image();
 const bad1 = new Image();
 const bad2 = new Image();
 const bad3 = new Image();
@@ -414,19 +446,21 @@ const bad11 = new Image();
 const bad12 = new Image();
 const bad13 = new Image();
 
-bad1.src = './assets/bad-guys/leo.png';
-bad2.src = './assets/bad-guys/devouerer.png';
-bad3.src = './assets/bad-guys/spirit.png';
-bad4.src = './assets/bad-guys/kerka.png';
-bad5.src = './assets/bad-guys/lobo.png';
-bad6.src = './assets/bad-guys/scorpion.png';
-bad7.src = './assets/bad-guys/sploomy.png';
-bad8.src = './assets/bad-guys/tucan.png';
-bad9.src = './assets/bad-guys/twig.png';
+
+bad0.src = './assets/bad-guys/leo-sprite.png';
+bad1.src = './assets/bad-guys/devouerer.png';
+bad2.src = './assets/bad-guys/spirit-best.png';
+bad3.src = './assets/bad-guys/kerka-sprite.png';
+bad4.src = './assets/bad-guys/lobo.png';
+bad5.src = './assets/bad-guys/scorpion.png';
+bad6.src = './assets/bad-guys/sploomy-sprite.png';
+bad7.src = './assets/bad-guys/tucan-sprite.png';
+bad8.src = './assets/bad-guys/twig.png';
+bad9.src = './assets/bad-guys/mario.png';
 bad10.src = './assets/bad-guys/enemies-chrono-trigger.png';
 bad11.src = './assets/bad-guys/enemies-chrono-trigger.png';
 bad12.src = './assets/bad-guys/enemies-chrono-trigger.png';
-bad13.src = './assets/bad-guys/enemies-chrono-trigger.png';
+bad13.src = './assets/bad-guys/npc.png';
 //=============================================================================//
 
 const cronoSprite = new Image();
@@ -444,68 +478,148 @@ chestSprite.src = './assets/chest.png';
 window.addEventListener('DOMContentLoaded', function() {
     
 //=============================Created openents and place them in map 1
-    dalton = new Mob(670,410);
-    dalton.image = dalSprite;
-    this.walk = 'left';
+    
+    
     //
-    foes[0] = spike = new Mob(185, 205);
-    foes[0].image = bad1;
+    foes[0] = spike = new Mob(185, 205, 'right');
+    foes[0].image = bad0;
+    // adjustments
+    foes[0].width = 65;
+    foes[0].height = 70;
+    foes[0].maxFrame = 3;
+    
     //
-    foes[1] = ghost = new Mob(425, 245);
-    foes[1].image = bad2;
+    foes[1] = ghost = new Mob(425, 245, 'left');
+    foes[1].image = bad1;
+    // adjustments
+    foes[1].width = 30;
+    foes[1].height = 35;
+    foes[1].frameX = 0;
+    foes[1].frameY = 0;
+    foes[1].maxFrame = 2;
     //
-    foes[3] = wolf = new Mob(145, 425);
-    foes[3].image = bad4;
+    foes[3] = wolf = new Mob(145, 425, 'up');
+    foes[3].image = bad3;
+    // adjustments
+    foes[3].width = 45;
+    foes[3].height = 55;
+    foes[3].frameX = 0;
+    foes[3].frameY = 0;
+    foes[3].maxFrame = 2;
     //
     foes[4] = grunt = new Mob(45, 345);
-    foes[4].image = bad5;
+    foes[4].image = bad4;
+    // adjustments
+    foes[4].width = 50;
+    foes[4].height = 50;
+    foes[4].frameX = 0;
+    foes[4].frameY = 0;
+    foes[4].maxFrame = 2;   //=== come back to this, sprite needs work ====================//
     //
-    foes[5] = wilder = new Mob(585, 345);
-    foes[5].image = bad6;
+    foes[5] = wilder = new Mob(585, 345, 'down');
+    foes[5].image = bad5;
+    // adjustments
+    foes[5].width = 30;
+    foes[5].height = 30;
+    foes[5].frameX = 0;
+    foes[5].frameY = 0;
+    foes[5].maxFrame = 2;
     //
-    foes[6] = crook = new Mob(665, 125);
-    foes[6].image = bad7;
+    foes[6] = crook = new Mob(665, 125, 'down');
+    foes[6].image = bad6;
+    // adjustments
+    foes[6].width = 25;
+    foes[6].height = 35;
+    foes[6].frameX = 0;
+    foes[6].frameY = 0;
+    foes[6].maxFrame = 2;
     //
-    foes[7] = witch = new Mob(505, 85);
-    foes[7].image = bad8;
+    foes[7] = witch = new Mob(505, 85, 'up');
+    foes[7].image = bad7;
+    // adjustments
+    foes[7].width = 35;
+    foes[7].height = 45;
+    foes[7].frameX = 0;
+    foes[7].frameY = 0;
+    foes[7].maxFrame = 2;
     //
-    foes[8] = vampire = new Mob(245, 45);
-    foes[8].image = bad9;
+    foes[8] = vampire = new Mob(245, 45, 'right');
+    foes[8].image = bad8;
+    // adjustments
+    foes[8].width = 32;
+    foes[8].height = 35;
+    foes[8].frameX = 0;
+    foes[8].frameY = 0;
+    foes[8].maxFrame = 2;
     //
-    foes[9] = blade = new Mob(710, 260);
-    foes[9].image = bad10;
+    foes[9] = blade = new Mob(710, 260, 'down');
+    foes[9].image = bad9;
+    // adjustments
+    foes[9].width = 30;
+    foes[9].height = 30;
+    foes[9].frameX = 0;
+    foes[9].frameY = 0;
+    foes[9].maxFrame = 1;
     //
     foes[10] = specter = new Mob(170, 340);
-    foes[10].image = bad11;
+    foes[10].image = bad10;
+    // adjustments
+    foes[10].width = 40;
+    foes[10].height = 40;
+    foes[10].frameX = 0;
+    foes[10].frameY = 0;
+    foes[10].maxFrame = 2;
     //
     foes[11] = phantom = new Mob(305, 445);
-    foes[11].image = bad12;
+    foes[11].image = bad11;
+    // adjustments
+    foes[11].width = 50;
+    foes[11].height = 50;
+    foes[11].frameX = 0;
+    foes[11].frameY = 0;
+    foes[11].maxFrame = 2;
     //
     foes[12] = dusk = new Mob(510, 300);
-    foes[12].image = bad13;
+    foes[12].image = bad12;
+    // adjustments
+    foes[12].width = 50;
+    foes[12].height = 50;
+    foes[12].frameX = 0;
+    foes[12].frameY = 0;
+    foes[12].maxFrame = 2;
     //
+    foes[13] = dalton = new Mob(670, 410, 'up');
+    foes[13].image = bad13;
         //=====================================Big BAD GUY=========================//
-        foes[2] = zombie = new Mob(0, 0);
-        foes[2].image = bad3;
+        foes[2] = zombie = new Mob(0, 0, 'right');
+        foes[2].image = bad2;
         foes[2].width = 125;
         foes[2].height = 37;
         foes[2].frameX = 5;
         foes[2].frameY = 0;
+        foes[2].maxFrame = 5;
         foes[2].hp += 60;
         foes[2].str += 10;
         foes[2].def += 4;
-        foes[2].walk = 'right';
         foes[2].roamWE = function() {
             if (this.walk === 'left') {
         
-                let walkLeft = setInterval(() => { this.x -=10}, 800);
+                let walkLeft = setInterval(() => { this.x -= 2}, 200);
                 walkLeft;
+            //======== animate sprite
+                this.tp += 1 // gain tp while walking because why not
+                this.frameY = 1;
+                
+
                 setTimeout(() => {clearInterval(walkLeft)}, 15000);
                 setTimeout(bossWalk, 16000);
                 
                 }else if (this.walk === 'right') {
-                let walkRight = setInterval(() => {this.x +=10}, 800);
+                let walkRight = setInterval(() => {this.x += 3}, 200);
                 walkRight;
+            //========== animate sprite
+                this.frameY = 0;
+                
                 setTimeout(() => {clearInterval(walkRight)}, 15000);
                 setTimeout(bossWalk, 16000);
                 
@@ -514,14 +628,21 @@ window.addEventListener('DOMContentLoaded', function() {
         foes[2].roamNS = function() {
             if (this.walk === 'up') {
         
-                let walkUp = setInterval(() => { this.y -=8}, 800);
+                let walkUp = setInterval(() => { this.y -= 2}, 200);
                 walkUp;
+                //======== animate sprite
+                this.frameY = 1;
+                
                 setTimeout(() => {clearInterval(walkUp)}, 15000);
                 setTimeout(bossWalk, 16000);
                 
                 }else if (this.walk === 'down') {
-                let walkDown = setInterval(() => {this.y +=8}, 1000);
+                let walkDown = setInterval(() => {this.y += 3}, 200);
                 walkDown;
+                //======== animate sprite
+                this.tp += 1; // gain tp while walking because why not
+                this.frameY = 0;
+                
                 setTimeout(() => {clearInterval(walkDown)}, 15000)
                 setTimeout(bossWalk, 16000);
                 
