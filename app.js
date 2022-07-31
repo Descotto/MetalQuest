@@ -5,6 +5,16 @@ game.height = 497;
 const ctx = game.getContext('2d'); //2d canvas
 const movement = document.querySelector('#movement');
 const info = document.querySelector('#innerinfo');
+const info2 = document.querySelector('#innerinfo2');
+const line1 = document.querySelector('#line1');
+const line2 = document.querySelector('#line2');
+const line3 = document.querySelector('#line3');
+const line4 = document.querySelector('#line4');
+const log1 = document.querySelector('#log1');
+const log2 = document.querySelector('#log2');
+const log3 = document.querySelector('#log3');
+const log4 = document.querySelector('#log4');
+
 
 
 const bg = new Image();

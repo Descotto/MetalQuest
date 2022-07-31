@@ -40,11 +40,10 @@ canvas {
     
 }
 
-  /* .container {
-    display: grid;
-    grid-template-columns: 400, 400;
-    grid-template-rows:    300, 300, 100;
-    grid-template-areas: "title top-right"
-                        "game game"
-                        "info controls";
-  } */
+#title, h2 {
+    font-family: 'Rampart One', cursive;
+}
+#info {
+    text-align: left;
+    margin-left: 100px;
+}

@@ -32,9 +32,10 @@ const battleMaps = []
 
 //======================================BATTLE MAP 1 =====================//
 function battle1(){
-    if (stg === 1) {
-//still record info, delete console.log then delete this =============================//
-info.textContent = `Hp: ${hero.hp}  Att: ${hero.att}    \nTP: ${hero.tp}     Xp: ${hero.xp}`;
+    if (stg === 1 && hero.battleGround) {
+//still record info.
+info.textContent = `Hp: ${hero.hp}  Att: ${hero.att}`;
+info2.textContent = `TP: ${hero.tp}     Xp: ${hero.xp}`;
    
 
 //DRAW BATTLE MAP
@@ -51,7 +52,8 @@ function stage1(){
     if (stg === 1) {
        //display x and y for hero
        movement.textContent = `x:${hero.x}\ny:${hero.y}`;
-       info.textContent = `Hp: ${hero.hp} Att: ${hero.att}\nLv: ${hero.lv} Xp: ${hero.xp}`;
+       info.textContent = `Hp: ${hero.hp} Att: ${hero.att}`;
+       info2.textContent = `Lv: ${hero.lv} Xp: ${hero.xp}`;
       //console.log(movement.textContent);
    
    //render background
