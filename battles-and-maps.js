@@ -150,8 +150,7 @@ setInterval(() =>{
 //============================ START BATTLE ========================//
 function battleStart() {
     for (i = 0; i < foes.length; i++) {
-    if (detechHit(hero, foes[i]) && hero.moving) {
-        if (foes[i].alive) {
+    if (detechHit(hero, foes[i]) && hero.moving && foes[i].alive) {
      // ====== TEST====external animations library== WORKS!
      //console.log('trigger');
      hero.target = foes[i];
@@ -161,10 +160,10 @@ function battleStart() {
      repeat: 4,
      yoyo: true,
      duration: 0.4
-    })}
+    })
     
     setTimeout(battleGo, 4000);
-    setTimeout(attackloop, 6000);
+    setInterval(attackloop, 6000);
     setTimeout(turnBased, 4000);
     setTimeout(menuShow, 6500);
 
@@ -192,8 +191,9 @@ function useHeal() {
 
 // Mob attack loop
 function attackloop(){
-    if (hero.target.alive && hero.hp > 0) {
-    setInterval(hero.target.attack, 10000);
+    if (hero.battleGround && hero.hp > 0) {
+        console.log('condition met');
+    hero.target.attack();
     }
 }
 
@@ -206,7 +206,7 @@ function battleGo(){
        })
     
 }
-// this one isn't working as instended. meant to add a timer for your turn
+//================ This is a timer for your turn that comes on 3 seconds after attacking
 function turnBased(){
     if (hero.battleGround) {
         hero.turn = true
@@ -219,7 +219,7 @@ function endBattle() {
     if (hero.target.hp <= 0) {
         hero.target.hp = 1;
         hero.target.alive = false;
-        let xp = hero.target.xp / 8
+        let xp = hero.target.xp / 4
         hero.xp += xp
         gsap.to('#overlap', {
             opacity: 1,
@@ -231,6 +231,7 @@ function endBattle() {
         setTimeout(menuHide, 2000);
 
 }}
+//===================== ends the battle and allows player to move again.
 function battleStop(){
     hero.battleGround = false;
     hero.moving = true;
@@ -242,17 +243,14 @@ function battleStop(){
 
 //==============================================Event Listeners for attacks ==========================//
 healBtn.addEventListener('click', () => {
-    console.log('heal');
     useHeal();
 });
 
 attBtn.addEventListener('click', () => {
-    console.log('attack');
     hero.attack();
 });
 
 tpbtn.addEventListener('click', () => {
-    console.log('tp');
     hero.TPmove();
 });
 

@@ -132,9 +132,9 @@ class Hero {
         this.minFrame = 0;
         this.battleGround = false;
         this.turn = false;
-        this.heal = false;
+        this.heal = true;
         this.target = '';
-
+        //==================STATS
         this.maxHp = 100;
         this.hp = 100;
         this.str = 5;
@@ -151,8 +151,8 @@ class Hero {
         }
 
         this.render = function() {
-            ctx.strokeStyle = 'white'
-            ctx.strokeRect(hero.x, hero.y, this.width, this.height);
+            // ctx.strokeStyle = 'white'
+            // ctx.strokeRect(hero.x, hero.y, this.width, this.height);
             this.drawSprite(this.image, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
             
         }
@@ -176,20 +176,22 @@ class Hero {
                 this.target.hp -= dmg;
                 console.log(`You deal ${dmg} damage.`);
                 hero.turn = false;
-                hero.tp += 7;
+                hero.tp += 14;
+                hero.target.tp += 7;
                 menuDiv.style.color = 'gray';
                 
-                setTimeout(turnBased, 8000);
+                setTimeout(turnBased, 3000);
             }
         }
         this.TPmove = function() {
             if (this.tp >= 100 && hero.battleGround) {
+                console.log(`You use "Heavy Metal"`);
+                console.log('Your power grows!');
                 this.att = this.att * 2;
                 this.attack();
                 this.tp = 0;
-                console.log(`You use "Heavy Metal"`);
                 setTimeout(() => {this.att = this.att / 2}, 3000);
-                setTimeout(console.log('time-out'), 8000);
+                setTimeout(console.log('Heavy Metal fades...'), 3000);
             }
         }
         // =================================== LV up test ================================//
@@ -245,8 +247,8 @@ class Mob{
             ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         }
             this.draw = function() {
-                ctx.strokeStyle = 'white'
-                ctx.strokeRect(this.x, this.y, this.width, this.height);
+                // ctx.strokeStyle = 'white'
+                // ctx.strokeRect(this.x, this.y, this.width, this.height);
                 this.drawSprite(this.image, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
                 
             
@@ -293,7 +295,7 @@ class Mob{
                     setTimeout(() => {this.walk = 'down'}, 16000);
                     
                     }else if (this.walk === 'down') {
-                    let walkDown = setInterval(() => {this.y +=2}, 1000);
+                    let walkDown = setInterval(() => {this.y +=2}, 800);
                     walkDown;
                     
                     setTimeout(() => {clearInterval(walkDown)}, 15000)
@@ -325,7 +327,7 @@ class Mob{
 
         //=======================================stats ==========================//
         this.alive = true
-        this.hp = 100
+        this.hp = 40
         this.att = 9
         this.def = 7
         this.str = 3
@@ -333,7 +335,7 @@ class Mob{
         this.tp = 0
         this.xp = 100
         this.attack = function() {
-            if (hero.battleGround) {
+            if (hero.battleGround && this.alive) {
                 let crit = Math.floor(Math.random() * 10)
                 console.log(crit);
                 let dmg = hero.target.att + hero.target.str - hero.def;
@@ -343,6 +345,7 @@ class Mob{
                 let totalDmg = Math.round(dmg);
                 console.log(totalDmg);
                 hero.hp -= totalDmg;
+                hero.tp += 5;
                 this.tp += 14;
                 console.log(`SLASH!`);
                 console.log(`You take ${totalDmg} damage.`)
@@ -411,8 +414,8 @@ class Loot{
             ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         }
             this.put = function() {
-                ctx.strokeStyle = 'white'
-                ctx.strokeRect(this.x, this.y, this.width, this.height);
+                // ctx.strokeStyle = 'white'
+                // ctx.strokeRect(this.x, this.y, this.width, this.height);
                 this.drawSprite(this.image, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
                 
             
@@ -519,7 +522,7 @@ window.addEventListener('DOMContentLoaded', function() {
     foes[5] = wilder = new Mob(585, 345, 'down');
     foes[5].image = bad5;
     // adjustments
-    foes[5].width = 30;
+    foes[5].width = 32;
     foes[5].height = 30;
     foes[5].frameX = 0;
     foes[5].frameY = 0;
@@ -528,7 +531,7 @@ window.addEventListener('DOMContentLoaded', function() {
     foes[6] = crook = new Mob(665, 125, 'down');
     foes[6].image = bad6;
     // adjustments
-    foes[6].width = 25;
+    foes[6].width = 35;
     foes[6].height = 35;
     foes[6].frameX = 0;
     foes[6].frameY = 0;
@@ -537,7 +540,7 @@ window.addEventListener('DOMContentLoaded', function() {
     foes[7] = witch = new Mob(505, 85, 'up');
     foes[7].image = bad7;
     // adjustments
-    foes[7].width = 35;
+    foes[7].width = 45;
     foes[7].height = 45;
     foes[7].frameX = 0;
     foes[7].frameY = 0;
