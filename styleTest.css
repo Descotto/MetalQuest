@@ -47,3 +47,30 @@ canvas {
     text-align: left;
     margin-left: 100px;
 }
+#log {
+    background-color: black;
+    height: 100px;
+    width: 800px;
+}
+#game-over {
+    height: 200px;
+    margin-top: 300px;
+    font-size: xxx-large;
+    font-family: 'Rampart One', cursive;
+}
+
+#line1, #line2, #line3, #log1, #log2, #log3 {
+    width: 400px;
+    height: 25px;
+    color: white;
+}
+
+#yourLog {
+    margin-left: 400px;
+    max-width: 400px;
+    margin-top: -123px;
+}
+#mobLog {
+    max-width: 400px;
+    display: inline;
+}

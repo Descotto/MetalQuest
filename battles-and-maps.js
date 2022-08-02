@@ -9,6 +9,7 @@ let attBtn = document.querySelector('#attack');
 let tpbtn = document.querySelector('#tp');
 let healBtn = document.querySelector('#heal');
 let overlap = document.querySelector('#overlap');
+let GOver = document.querySelector('#game-over');
 
 //Function below hides menu when battleZone isn't active, or isnt your turn.
 function menuHide() {
@@ -54,7 +55,7 @@ function stage1(){
        movement.textContent = `x:${hero.x}\ny:${hero.y}`;
        info.textContent = `Hp: ${hero.hp} Att: ${hero.att}`;
        info2.textContent = `Lv: ${hero.lv} Xp: ${hero.xp}`;
-      //console.log(movement.textContent);
+      
    
    //render background
    ctx.drawImage(bg, 0, 0);
@@ -113,30 +114,9 @@ function bossWalk() {
     foes[2].walk = BossMovements[rnd];
 }}
 
-//============== animate bad guys sprites function for recall -- doesn't work propertly
-// function moveSprite() {
-//     console.log(this.frameX+'framex');
-//     if (this.frameX < this.maxFrame) {
-//     this.frameX ++;
-//     console.log('moved if');
 
-// }else { 
-//     this.frameX = this.minFrame
-//     console.log('moved else');
-// }};
-//======================== for declare function in individual characters
-// function moveSprite(character) {
-//     console.log('current frameX'+character.frameX);
-//     if (character.frameX < character.maxFrame) {
-//     character.frameX++;
-//     console.log('moved if');
 
-// }else { 
-//     character.frameX = 0;
-//     console.log('moved else');
-// }};
-
-//============== foreach to make em all move once and for all
+//===================================foreach to make em all move once and for all
 setInterval(() =>{
     foes.forEach(element => {
         if (element.frameX < element.maxFrame) {
@@ -154,7 +134,7 @@ function battleStart() {
     for (i = 0; i < foes.length; i++) {
     if (detechHit(hero, foes[i]) && hero.moving && foes[i].alive) {
      // ====== TEST====external animations library== WORKS!
-     //console.log('trigger');
+    
      hero.target = foes[i];
      hero.moving = false;
      gsap.to('#overlap', {
@@ -178,13 +158,13 @@ function useHeal() {
         if (hero.hp + 50 <= hero.maxHp) {
             hero.heal = false;
             hero.hp += 50;
-            console.log('You recovered 50 HP!');
+            playerLog('You recovered 50 HP!');
         }else {
             hero.heal = false;
             hero.hp = hero.maxHp;
-            console.log('You recovered 50 HP!');
+            playerLog('You recovered 50 HP!');
         }
-    }else{console.log('Flask Empty.')}
+    }else{playerLog('Flask Empty.')}
 }
 
 
@@ -194,7 +174,7 @@ function useHeal() {
 // Mob attack loop
 function attackloop(){
     if (hero.battleGround && hero.hp > 0) {
-        console.log('condition met');
+        
     hero.target.attack();
     }
 }
@@ -258,4 +238,25 @@ tpbtn.addEventListener('click', () => {
 
 
 
+//===================================GAME OVER============================//
+function gameOver() {
+    if (hero.hp <= 0) {
+        hero.hp = 'OVER';
+        hero.alive = false;
+        
+        gsap.to('#overlap', {
+            opacity: 1,
+            repeat: 4,
+            yoyo: true,
+            duration: 0.4
+           })
+           GOver.style.color = 'white';
+        setTimeout(menuHide, 2000);
+}
+    
+
+}
+
+
+//================================================================
 

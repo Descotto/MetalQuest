@@ -19,22 +19,27 @@
     <div class="container" style="position: relative;">
         <aside id="title"><h2>Metal Quest</h2></aside>
         <aside id="top-right"><h2 id="movement"></h2></aside>
-        <main style="position: relative;">
-            <div id="log" style="background-color: black;">
+        <aside id="log">
+            <div style="background-color: black; display: inline;">
                 <div id="mobLog">
-                    <p id="line1"></p>
-                    <p id="line2"></p>
-                    <p id="line3"></p>
-                    <p id="line4"></p>
+                    <p id="line1">test text</p>
+                    <p id="line2">test text</p>
+                    <p id="line3">test text</p>
+                    
                 </div>
                 <div id="yourLog">
-                    <p id="log1"></p>
-                    <p id="log2"></p>
-                    <p id="log3"></p>
-                    <p id="log4"></p>
+                    <p id="log1">test text</p>
+                    <p id="log2">test text</p>
+                    <p id="log3">test text</p>
+                    
                 </div>
             </div>
-            <div id="overlap" style="background-color: black; position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 0; pointer-events: none;"></div>
+        </aside>
+        <main style="position: relative;">
+            
+            <div id="overlap" style="background-color: black; position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 0; pointer-events: none;">
+                <h1 id="game-over">GAME OVER</h1>
+            </div>
             <canvas id="game"><!-- play it, a game --></canvas>
             <div id="menu" style="
             background-color: rgb(91, 90, 89, .6);

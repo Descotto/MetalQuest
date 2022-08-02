@@ -1,3 +1,9 @@
+//LOG
+
+
+
+
+
 // Selectors and variables
 const game = document.querySelector('#game');
 game.width = 800;
@@ -9,14 +15,14 @@ const info2 = document.querySelector('#innerinfo2');
 const line1 = document.querySelector('#line1');
 const line2 = document.querySelector('#line2');
 const line3 = document.querySelector('#line3');
-const line4 = document.querySelector('#line4');
+
 const log1 = document.querySelector('#log1');
 const log2 = document.querySelector('#log2');
 const log3 = document.querySelector('#log3');
-const log4 = document.querySelector('#log4');
 
 
-
+let battleLog = [line1, line2, line3];
+let playerLog = [log1, log2, log3];
 const bg = new Image();
 bg.src = './assets/map2.bmp'
 
@@ -56,43 +62,43 @@ collisionMap.forEach((row, i) => {
 })
 //========================================== LOOT ITEMS ===============================//
 let lootNothing = function() {
-    console.log('The chest is empty');
+    playerLog('The chest is empty');
 }
 let lootPotion = function() {
     if (hero.hp + 30 < hero.maxHp) {
         hero.hp += 30;
-        console.log('Sick! You found a Potion!  HP + 30');
+        playerLog('Sick! You found a Potion!  HP + 30');
     }else {
         hero.hp = hero.maxHp;
-        console.log('Sick! You found a Potion!  HP + 30');
+        playerLog('Sick! You found a Potion!  HP + 30');
     }
 }
 let lootLowPotion = function() {
     if (hero.hp + 20 < hero.maxHp) {
         hero.hp += 20;
-        console.log('Sick! You found a Low-Potion!  HP + 20');
+        playerLog('Sick! You found a Low-Potion!  HP + 20');
     }else {
         hero.hp = hero.maxHp;
-        console.log('Sick! You found a Low-Potion!  HP + 20');
+        playerLog('Sick! You found a Low-Potion!  HP + 20');
     }
 }
 let lootHiPotion = function() {
     if (hero.hp + 50 < hero.maxHp) {
         hero.hp += 50;
-        console.log('Sick! You found a Hi-Potion!  HP + 50');
+        playerLog('Sick! You found a Hi-Potion!  HP + 50');
     }else {
         hero.hp = hero.maxHp;
-        console.log('Sick! You found a Hi-Potion!  HP + 50');
+        playerLog('Sick! You found a Hi-Potion!  HP + 50');
     }
 }
 let lootdmg = function() {
     hero.att += 7;
-    console.log('Sick! Your Attack grew by 7!');
+    playerLog('Sick! Your Attack grew by 7!');
     setTimeout(deBuff, 60000);
 }
 let deBuff = function() {
     hero.att -= 7;
-    console.log('Your Attack went back to normal');
+    playerLog('Your Attack went back to normal');
 }
 //=================================CHARACTERS AND CHESTS========================================//
 //a few bad guys
@@ -184,7 +190,7 @@ class Hero {
                 let dmg = (this.att + this.str) - (this.target.def);
                 dmg += crit
                 this.target.hp -= dmg;
-                console.log(`You deal ${dmg} damage.`);
+                playerLog(`You deal ${dmg} damage.`);
                 hero.turn = false;
                 hero.tp += 14;
                 hero.target.tp += 7;
@@ -195,38 +201,38 @@ class Hero {
         }
         this.TPmove = function() {
             if (this.tp >= 100 && hero.battleGround) {
-                console.log(`You use "Heavy Metal"`);
-                console.log('Your power grows!');
+                playerLog(`You use "Heavy Metal"`);
+                playerLog('Your power grows!');
                 this.att = this.att * 2;
                 this.attack();
                 this.tp = 0;
                 setTimeout(() => {this.att = this.att / 2}, 3000);
-                setTimeout(console.log('Heavy Metal fades...'), 3000);
+                setTimeout(playerLog('Heavy Metal fades...'), 3000);
             }
         }
         // =================================== LV up test ================================//
             this.levelUp = function() {
                 if (this.xp > this.nextLv) {
                 this.lv += 1
-                console.log(`Level up! LV:${this.lv}`);
+                playerLog(`Level up! LV:${this.lv}`);
                 // MAX HP
                 this.maxHp += (this.maxHp + this.lv) / 3;
                 this.maxHp = Math.round(this.maxHp);
                 this.hp = this.maxHp;
-                console.log(`Max HP: ${this.maxHp}`);
+                playerLog(`Max HP: ${this.maxHp}`);
                 
                 //ATT
                 this.att += (this.att + this.lv) / 3;
                 this.att = Math.round(this.att);
-                console.log(`Attack: ${this.att}`);
+                playerLog(`Attack: ${this.att}`);
                 //DEF
                 this.def += (this.def + this.lv) / 3;
                 this.def = Math.round(this.def);
-                console.log(`Defense: ${this.def}`);
+                playerLog(`Defense: ${this.def}`);
                 //str
                 this.str += (this.str + this.lv) / 3;
                 this.str = Math.round(this.str);
-                console.log(`Streght: ${this.str}`);
+                playerLog(`Streght: ${this.str}`);
                 //for next level
                 this.nextLv += (this.nextLv + (this.lv * 10)) / 2;
                 this.nextLv = Math.round(this.nextLv);
@@ -312,28 +318,6 @@ class Mob{
                     setTimeout(() => {this.walk = 'up'}, 16000);
                     
             }}
-            //===================== Move sprite
-        //     this.character;
-        //     this.moveSprite = function(character){
-        //         console.log('current frameX'+character.frameX);
-        //     if (this.character.frameX < this.character.maxFrame) {
-        //     this.character.frameX++;
-        //     console.log('moved if');
-        
-        // }else { 
-        //     character.frameX = 0;
-        //     console.log('moved else');
-        // }};
-            // this.moveSprite = function() {
-            //     console.log('current frameX'+this.frameX);
-            //     if (this.frameX < this.maxFrame) {
-            //     this.frameX++;
-            //     console.log('moved if');
-            
-            // }else { 
-            //     this.frameX = 0;
-            //     console.log('moved else');
-            // }};
 
         //=======================================stats ==========================//
         this.alive = true
@@ -347,18 +331,19 @@ class Mob{
         this.attack = function() {
             if (hero.battleGround && this.alive) {
                 let crit = Math.floor(Math.random() * 10)
-                console.log(crit);
+                
                 let dmg = hero.target.att + hero.target.str - hero.def;
-                console.log('check 1:   '+dmg);
+                
                 dmg += crit;
-                console.log('check 2:  '+dmg);
+                
                 let totalDmg = Math.round(dmg);
-                console.log(totalDmg);
+                
                 hero.hp -= totalDmg;
                 hero.tp += 5;
                 this.tp += 14;
-                console.log(`SLASH!`);
-                console.log(`You take ${totalDmg} damage.`)
+                
+                mobLog(`Slash!  You take ${totalDmg} damage.`)
+                
             }
         }
         this.TPmove = function() {
@@ -366,7 +351,7 @@ class Mob{
                 this.att = this.att * 2;
                 this.attack();
                 this.tp = 0;
-                console.log(`CRITICAL HIT!`)
+                mobLog(`CRITICAL HIT!`)
                 setTimeout(() => {this.att = this.att / 2}, 3000);
             }
         }
@@ -464,15 +449,15 @@ bad0.src = './assets/bad-guys/leo-sprite.png';
 bad1.src = './assets/bad-guys/devouerer.png';
 bad2.src = './assets/bad-guys/spirit-best.png';
 bad3.src = './assets/bad-guys/kerka-sprite.png';
-bad4.src = './assets/bad-guys/lobo.png';
+bad4.src = './assets/bad-guys/npc.png';
 bad5.src = './assets/bad-guys/scorpion.png';
 bad6.src = './assets/bad-guys/sploomy-sprite.png';
 bad7.src = './assets/bad-guys/tucan-sprite.png';
 bad8.src = './assets/bad-guys/twig.png';
 bad9.src = './assets/bad-guys/mario.png';
-bad10.src = './assets/bad-guys/enemies-chrono-trigger.png';
-bad11.src = './assets/bad-guys/enemies-chrono-trigger.png';
-bad12.src = './assets/bad-guys/enemies-chrono-trigger.png';
+bad10.src = './assets/bad-guys/ct-bad1.png';
+bad11.src = './assets/bad-guys/ct-bad2.png';
+bad12.src = './assets/bad-guys/ct-bad3.png';
 bad13.src = './assets/bad-guys/npc.png';
 //=============================================================================//
 
@@ -520,11 +505,11 @@ window.addEventListener('DOMContentLoaded', function() {
     foes[3].frameY = 0;
     foes[3].maxFrame = 2;
     //
-    foes[4] = grunt = new Mob(45, 345);
+    foes[4] = grunt = new Mob(45, 345, 'down');
     foes[4].image = bad4;
     // adjustments
-    foes[4].width = 50;
-    foes[4].height = 50;
+    // foes[4].width = 50;
+    // foes[4].height = 50;
     foes[4].frameX = 0;
     foes[4].frameY = 0;
     foes[4].maxFrame = 2;   //=== come back to this, sprite needs work ====================//
@@ -574,7 +559,7 @@ window.addEventListener('DOMContentLoaded', function() {
     foes[9].frameY = 0;
     foes[9].maxFrame = 1;
     //
-    foes[10] = specter = new Mob(170, 340);
+    foes[10] = specter = new Mob(170, 340, 'left');
     foes[10].image = bad10;
     // adjustments
     foes[10].width = 40;
@@ -583,20 +568,20 @@ window.addEventListener('DOMContentLoaded', function() {
     foes[10].frameY = 0;
     foes[10].maxFrame = 2;
     //
-    foes[11] = phantom = new Mob(305, 445);
+    foes[11] = phantom = new Mob(305, 445, 'left');
     foes[11].image = bad11;
     // adjustments
-    foes[11].width = 50;
-    foes[11].height = 50;
+    foes[11].width = 40;
+    foes[11].height = 40;
     foes[11].frameX = 0;
     foes[11].frameY = 0;
     foes[11].maxFrame = 2;
     //
-    foes[12] = dusk = new Mob(510, 300);
+    foes[12] = dusk = new Mob(510, 300, 'right');
     foes[12].image = bad12;
     // adjustments
-    foes[12].width = 50;
-    foes[12].height = 50;
+    foes[12].width = 40;
+    foes[12].height = 40;
     foes[12].frameX = 0;
     foes[12].frameY = 0;
     foes[12].maxFrame = 2;
@@ -769,7 +754,7 @@ function gameLoop() {
     
 if (hero.battleGround) {
    battle1();
-   
+   gameOver();
 //===================================Battleground switch =================================//
 }else {
     stage1();
@@ -794,7 +779,7 @@ function detechHit(obj1, obj2) {
 let outBound = function() {
     let output = false;
     boundaries.forEach(element => {
-       // console.log(element.x, element.y)
+       
         if (detechHit(hero, element)){
             output = true
         }
@@ -825,8 +810,30 @@ function looting() {
     //picks a rasndom string out of the chestLoot array
     let rnd = Math.floor(Math.random() * chestLoot.length);
     chestLoot[rnd]();
+    hero.heal = true;
     
 }
 
 
 
+//============================CONSOLE LOG ========================//
+function mobLog(string) {
+    
+    line3.textContent = line2.textContent;
+    line2.textContent = line1.textContent;
+    line1.textContent = string;
+}
+
+function heroLog(string) {
+    
+    log3.textContent = log2.textContent;
+    log2.textContent = log1.textContent;
+    log1.textContent = string;
+}
+setInterval(() =>{
+    mobLog('');
+}, 13000);
+
+setInterval(() =>{
+    heroLog('');
+}, 13000);
