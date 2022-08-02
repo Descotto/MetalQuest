@@ -12,6 +12,7 @@ const ctx = game.getContext('2d'); //2d canvas
 const movement = document.querySelector('#movement');
 const info = document.querySelector('#innerinfo');
 const info2 = document.querySelector('#innerinfo2');
+const tpReady = document.querySelector('#tpReady');
 const line1 = document.querySelector('#line1');
 const line2 = document.querySelector('#line2');
 const line3 = document.querySelector('#line3');
@@ -21,8 +22,6 @@ const log2 = document.querySelector('#log2');
 const log3 = document.querySelector('#log3');
 
 
-let battleLog = [line1, line2, line3];
-let playerLog = [log1, log2, log3];
 const bg = new Image();
 bg.src = './assets/map2.bmp'
 
@@ -470,6 +469,43 @@ battleSpriteHero.src = './assets/mat-attack.png';
 const chestSprite = new Image();
 chestSprite.src = './assets/chest.png';
 
+//=========================== DOORS =====================================//
+//door sprite
+const doorSprite = new Image();
+//change the src
+doorSprite.src = './assets/tele.png'
+
+
+
+class Door{
+    constructor(x, y){
+        this.x = x
+        this.y = y
+        this.width = 85
+        this.height = 85
+        this.frameX = 0
+        this.frameY = 0
+        this.maxFrame = 3
+        this.image = doorSprite
+        
+        this.drawSprite = function(img, sX, sY, sW, sH, dX, dY, dW, dH){
+            ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+        }
+            this.put = function() {
+                // ctx.strokeStyle = 'white'
+                // ctx.strokeRect(this.x, this.y, this.width, this.height);
+                this.drawSprite(this.image, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
+                
+            
+        }
+    //stats
+        this.open =false
+        
+    }
+}
+// make a door.
+let door = new Door(680, 399);
+
 
 //================================ START GAME ============================//
 //Event listener
@@ -824,7 +860,7 @@ function mobLog(string) {
     line1.textContent = string;
 }
 
-function heroLog(string) {
+function playerLog(string) {
     
     log3.textContent = log2.textContent;
     log2.textContent = log1.textContent;
@@ -835,5 +871,17 @@ setInterval(() =>{
 }, 13000);
 
 setInterval(() =>{
-    heroLog('');
+    playerLog('');
 }, 13000);
+
+// ==================== A little visual trick for TP moves
+function tpColor(){
+    if (hero.tp >= 100 && hero.battleGround && tpReady.style.backgroundColor != 'red') {
+        tpReady.style.backgroundColor = 'red';
+    }else if (hero.tp >= 100 && hero.battleGround && tpReady.style.backgroundColor === 'red') {
+        tpReady.style.backgroundColor = 'green';
+    }else if (hero.tp < 100) {
+        tpReady.style.backgroundColor = 'inherit';
+    }
+}
+//=========================

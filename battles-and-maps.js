@@ -25,13 +25,21 @@ function menuShow() {
 
 
 
-//========================================MAPS=============================//
+//========================================MAPS================================================================//
 let stg = 1
 
 
 const battleMaps = []
 
-//======================================BATTLE MAP 1 =====================//
+//=====================================================DOOR MAP LINKS ======================================//
+let bodyCount = 0;
+function openDoor() {
+    if (bodyCount >= 5) {
+        door.open = true;
+    }
+}
+
+//======================================BATTLE MAP 1 =======================================================//
 function battle1(){
     if (stg === 1 && hero.battleGround) {
 //still record info.
@@ -46,9 +54,14 @@ hero.target.renderBattle();
 hero.target.TPmove();
 hero.levelUp();
 endBattle();
+
+setInterval(() =>{
+    tpColor();
+}, 500);
+
 }}
 //
-//========================================MAP 1 =========================//
+//========================================MAP 1 ================================================//
 function stage1(){
     if (stg === 1) {
        //display x and y for hero
@@ -65,11 +78,16 @@ function stage1(){
    chest2.put();
    chest3.put();
    chest4.put();
+   
+   door.put();
    //changes the sprite depending on the chest being open or closed
    chest1.switch();
    chest2.switch();
    chest3.switch();
    chest4.switch();
+   
+   //==door
+   openDoor();
    
    //spawn hero
    hero.render();
@@ -116,14 +134,29 @@ function bossWalk() {
 
 
 
-//===================================foreach to make em all move once and for all
+//==================== ANIMATE SPRITES ===============foreach to make em all move once and for all
 setInterval(() =>{
     foes.forEach(element => {
         if (element.frameX < element.maxFrame) {
             element.frameX++;
         }else{element.frameX = 0;}
     })
-}, 800);
+}, 400);
+
+//==================== similar approach to the door
+
+setInterval(() => {
+    if (door.open) {
+        door.frameY = 1;
+        if (door.frameX < door.maxFrame){
+        door.frameX += 1
+        }else{door.frameX = 0;}
+    }else if (door.open == false) {
+        door.frameY = 0;
+        if (door.frameX < door.maxFrame) {
+            door.frameX += 1;
+        }else{door.frameX = 0;}
+}}, 600);
 //==========================================================================================//
 
 
@@ -202,6 +235,7 @@ function endBattle() {
         hero.target.hp = 1;
         hero.target.alive = false;
         let xp = hero.target.xp / 4
+        bodyCount += 1;
         hero.xp += xp
         gsap.to('#overlap', {
             opacity: 1,
@@ -257,6 +291,4 @@ function gameOver() {
 
 }
 
-
-//================================================================
 

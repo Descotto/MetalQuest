@@ -129,6 +129,18 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tele.tmx": {
+            "scale": 0.1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 780,
+                "y": 515
+            }
+        },
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tele.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tests.tmx": {
             "scale": 1,
             "selectedLayer": 0,
@@ -193,6 +205,10 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "gfx/tele.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "gfx/tucan copy.tsx": {
             "scaleInDock": 0.33,
             "scaleInEditor": 1
@@ -207,18 +223,21 @@
         }
     },
     "last.exportedFilePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets",
-    "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys",
+    "last.imagePath": "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets",
     "map.height": 4,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 40,
-    "map.tileWidth": 40,
+    "map.tileHeight": 254,
+    "map.tileWidth": 254,
     "map.width": 4,
     "openFiles": [
         "gfx/Overworld.tsx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
+        "gfx/tele.tsx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tele.tmx",
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/tele.tsx",
         "gfx/Overworld.tsx",
         "gfx/enemies-chrono-trigger.tsx",
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/untitled.tmx",
@@ -227,17 +246,14 @@
         "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/mario.tsx",
         "gfx/mario.tsx",
         "gfx/tucan.tsx",
-        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/tucan-sprite.tmx",
-        "gfx/tucan copy.tsx",
-        "gfx/kerka.tsx",
-        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/for-kerka.tmx"
+        "/Users/davidescotto/Desktop/general-assembly/projects/MetalQuest/assets/bad-guys/tucan-sprite.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 0,
     "tileset.spacing": 0,
     "tileset.tileSize": {
-        "height": 40,
-        "width": 40
+        "height": 254,
+        "width": 254
     },
     "tileset.transparentColor": "#20fffe",
     "tileset.useTransparentColor": true
