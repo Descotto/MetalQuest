@@ -1,4 +1,3 @@
-
 body {
     background-color: darkslategray;
     text-align: center;
@@ -7,51 +6,67 @@ body {
 
 canvas {
     background-color: rgb(2, 4, 1);
-  }
+}
+
 #menu {
     border: solid;
     border-color: rgb(137, 104, 33);
     border-style: double;
 }
+
 #attack {
-    
+
     height: 40px;
     font-family: 'Rampart One', cursive;
 }
+
 #tp {
     height: 40px;
     font-family: 'Rampart One', cursive;
 }
+
 #heal {
     height: 40px;
     font-family: 'Rampart One', cursive;
 }
+
 #attack:hover {
     background-color: burlywood;
 }
+
 #tp:hover {
     background-color: burlywood;
 }
+
 #heal:hover {
     background-color: burlywood;
 }
+
 .button {
     border: dashed;
-    
+
 }
 
-#title, h2 {
-    font-family: 'Rampart One', cursive;
+h2 {
+    font-family: 'Rampart One', cursive;   
+}
+#titleID {
+    font-family: 'Metal Mania', cursive;
+    color: orange;
+    font-size: xx-large;
+    background-color: black;
 }
 #info {
     text-align: left;
     margin-left: 100px;
 }
+
 #log {
     background-color: black;
     height: 100px;
     width: 800px;
 }
+
 #game-over {
     height: 200px;
     margin-top: 300px;
@@ -59,7 +74,12 @@ canvas {
     font-family: 'Rampart One', cursive;
 }
 
-#line1, #line2, #line3, #log1, #log2, #log3 {
+#line1,
+#line2,
+#line3,
+#log1,
+#log2,
+#log3 {
     width: 400px;
     height: 25px;
     color: white;
@@ -70,7 +90,22 @@ canvas {
     max-width: 400px;
     margin-top: -123px;
 }
+
 #mobLog {
     max-width: 400px;
     display: inline;
+}
+#info {
+    color: aquamarine;
+    background-color: black;
+    max-width: fit-content;
+}
+#controls {
+    color: aquamarine;
+    background-color: black;
+    max-width: fit-content;
+    text-align: left;
+}
+#container {
+    justify-content: center;
 }
