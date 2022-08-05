@@ -66,7 +66,7 @@ function battle1() {
 function stage1() {
     if (stg === 1) {
         //display x and y for hero
-        movement.textContent = `x:${hero.x}\ny:${hero.y}`;
+        // movement.textContent = `x:${hero.x}\ny:${hero.y}`;
         info.textContent = `Hp: ${hero.hp} Att: ${hero.att}`;
         info2.textContent = `Lv: ${hero.lv} Xp: ${hero.xp}`;
 
@@ -89,7 +89,7 @@ function stage1() {
 
         //==door
         openDoor();
-
+        endGame();
         //spawn hero
         hero.render();
 
@@ -105,11 +105,18 @@ function stage1() {
     }
 }
 //===========================================MAP 2 =========================================//
+// 
+//=================listener
 function stage2() {
+ movement.textContent = `x:${hero.x}\ny:${hero.y}`;
+info.textContent = `Hp: ${hero.hp} Att: ${hero.att}`;
+info2.textContent = `Lv: ${hero.lv} Xp: ${hero.xp}`;
 //==============================collisions
 //== make a new array every 50 items
 const collisionMap2 = [];
 // prepCollision(map2Collision, collisionMap2);
+
+
 
 //============= for eeach "true" in the Json array make a new boundary   --- ask for help
 const boundariesMap2 = [];
@@ -120,9 +127,10 @@ const boundariesMap2 = [];
 }
 
 //=====================================BATTLE MAP 2 =====================================//
+//=================Listener 
 function battle2(){}
 
-//=================================== BATTLEGROUND EVENTS and stuff ========================//
+//=================================== BATTLEGROUND EVENTS ========================//
 
 //===================================ENEMY MOVES =======================================//
 setInterval(() => {
@@ -211,14 +219,14 @@ function battleStart() {
 //================Heal
 function useHeal() {
     if (hero.heal && hero.battleGround) {
-        if (hero.hp + 50 <= hero.maxHp) {
+        if (hero.hp + 120 <= hero.maxHp) {
             hero.heal = false;
-            hero.hp += 50;
-            playerLog('You recovered 50 HP!');
+            hero.hp += 120;
+            playerLog('You recovered 120 HP!');
         } else {
             hero.heal = false;
             hero.hp = hero.maxHp;
-            playerLog('You recovered 50 HP!');
+            playerLog('You recovered all your HP!');
         }
     } else { playerLog('Flask Empty.') }
 }
@@ -318,7 +326,7 @@ function gameOver() {
 }
 
 
-//====================================AUDIO TESTS =======================================//
+//====================================AUDIO =======================================//
 
 const song1 = new Audio();
 song1.src = './assets/Midi/EnterSandman.mp3';
@@ -358,4 +366,20 @@ function stopMusic(array) {
     array.forEach(element => {element.pause();});
     
 
+}
+//================================================================//
+
+//============================== Temporary End Game  ==============================//
+
+function endGame() {
+    if (detechHit(hero, door) && door.open) {
+        GOver.style.color = 'white';
+        setTimeout(menuHide, 2000);
+        gsap.to('#overlap', {
+            opacity: 1,
+            repeat: 4,
+            yoyo: true,
+            duration: 0.4
+        })
+    }
 }

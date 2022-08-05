@@ -157,11 +157,11 @@ class Hero {
         this.heal = true;
         this.target = '';
         //==================STATS
-        this.maxHp = 100;
-        this.hp = 100;
-        this.str = 5;
-        this.att = 10;
-        this.def = 8;
+        this.maxHp = 300;
+        this.hp = 300;
+        this.str = 9;
+        this.att = 11;
+        this.def = 9;
         this.lv = 1;
         this.xp = 0
         this.tp = 0
@@ -192,7 +192,7 @@ class Hero {
             if (hero.battleGround && hero.turn) {
                 hero.frameX += 1;
                 // crit = random from 1 to 10
-                let crit = Math.floor(Math.random() * 10)
+                let crit = Math.floor(Math.random() * 15)
                 //dmg = the att plus the str minus target's def plus crit - same formula for mobs
                 let dmg = (this.att + this.str) - (this.target.def);
                 dmg += crit
@@ -226,20 +226,20 @@ class Hero {
                 this.maxHp += (this.maxHp + this.lv) / 3;
                 this.maxHp = Math.round(this.maxHp);
                 this.hp = this.maxHp;
-                playerLog(`Max HP: ${this.maxHp}`);
+                //playerLog(`Max HP: ${this.maxHp}`);
 
                 //ATT
                 this.att += (this.att + this.lv) / 3;
                 this.att = Math.round(this.att);
-                playerLog(`Attack: ${this.att}`);
+                //playerLog(`Attack: ${this.att}`);
                 //DEF
                 this.def += (this.def + this.lv) / 3;
                 this.def = Math.round(this.def);
-                playerLog(`Defense: ${this.def}`);
+                //playerLog(`Defense: ${this.def}`);
                 //str
                 this.str += (this.str + this.lv) / 3;
                 this.str = Math.round(this.str);
-                playerLog(`Streght: ${this.str}`);
+                //playerLog(`Streght: ${this.str}`);
                 //for next level
                 this.nextLv += (this.nextLv + (this.lv * 10)) / 2;
                 this.nextLv = Math.round(this.nextLv);
