@@ -719,35 +719,37 @@ function moveChar(e) {
 
 
     switch (e.key) {
-        case 'ArrowUp':
-            hero.y - 20 >= 0 ? (hero.y -= 20) : null;
-            hero.frameY = 1;
-            if (hero.frameX < hero.maxFrame) {
-                hero.frameX++;
-            } else { hero.frameX = hero.minFrame }
-            break;
-        case 'ArrowLeft':
-            hero.x - 20 >= 0 ? (hero.x -= 20) : null;
-            hero.frameY = 2;
-            if (hero.frameX < hero.maxFrame) {
-                hero.frameX++;
-            } else { hero.frameX = hero.minFrame }
-            break;
-        case 'ArrowDown':
-            hero.y + 20 <= game.height ? (hero.y += 20) : null;
-            hero.frameY = 0;
-            if (hero.frameX < hero.maxFrame) {
-                hero.frameX++;
-            } else { hero.frameX = hero.minFrame }
-            break;
-        case 'ArrowRight':
-            hero.x + 20 <= game.width ? (hero.x += 20) : null;
-            hero.frameY = 3;
-            if (hero.frameX < hero.maxFrame) {
-                hero.frameX++;
 
-            } else { hero.frameX = hero.minFrame }
-            break;
+        //===================================Arrow cases for debugging purposes, no boundaries.
+        // case 'ArrowUp':
+        //     hero.y - 20 >= 0 ? (hero.y -= 20) : null;
+        //     hero.frameY = 1;
+        //     if (hero.frameX < hero.maxFrame) {
+        //         hero.frameX++;
+        //     } else { hero.frameX = hero.minFrame }
+        //     break;
+        // case 'ArrowLeft':
+        //     hero.x - 20 >= 0 ? (hero.x -= 20) : null;
+        //     hero.frameY = 2;
+        //     if (hero.frameX < hero.maxFrame) {
+        //         hero.frameX++;
+        //     } else { hero.frameX = hero.minFrame }
+        //     break;
+        // case 'ArrowDown':
+        //     hero.y + 20 <= game.height ? (hero.y += 20) : null;
+        //     hero.frameY = 0;
+        //     if (hero.frameX < hero.maxFrame) {
+        //         hero.frameX++;
+        //     } else { hero.frameX = hero.minFrame }
+        //     break;
+        // case 'ArrowRight':
+        //     hero.x + 20 <= game.width ? (hero.x += 20) : null;
+        //     hero.frameY = 3;
+        //     if (hero.frameX < hero.maxFrame) {
+        //         hero.frameX++;
+
+        //     } else { hero.frameX = hero.minFrame }
+        //     break;
 
         // WASD Keybindings
 
