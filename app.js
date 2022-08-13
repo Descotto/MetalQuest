@@ -433,7 +433,6 @@ class Loot {
 }
 //================================ SPRITES ====================================//
 
-//================================gotta find better way to make these, maybe an array.
 
 
 
